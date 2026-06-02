@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZGlobal — Multi-Brand Wholesale Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d2b5e;
+  --navy-mid:#163d80;
+  --navy-light:#e8f0fb;
+  --gold:#c49a3a;
+  --gold-light:#f5e8c8;
+  --ink:#0f172a;
+  --body:#f8fafc;
+  --white:#ffffff;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --text:#1e293b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);padding:7px 56px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.06em}
+.topbar a{color:rgba(255,255,255,.35);text-decoration:none;margin-left:18px;transition:color .2s}
+.topbar a:hover{color:rgba(255,255,255,.8)}
+
+/* ── NAV ── */
+.nav-outer{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+nav{max-width:1280px;margin:0 auto;padding:0 56px;display:flex;align-items:center;height:60px}
+.nav-logo{display:flex;align-items:center;margin-right:48px;flex-shrink:0}
+.nav-logo svg{height:24px;width:auto}
+.nav-links{display:flex;align-items:stretch;flex:1}
+.nav-item{position:relative}
+.nav-link{display:flex;align-items:center;gap:4px;padding:0 15px;height:60px;color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .18s;white-space:nowrap;border-bottom:2px solid transparent;user-select:none}
+.nav-link:hover,.nav-item:hover>.nav-link{color:var(--navy);border-bottom-color:var(--gold)}
+.ch{font-size:7px;opacity:.4;transition:transform .18s}
+.nav-item:hover>.nav-link .ch{transform:rotate(180deg)}
+
+/* dropdown */
+.dropdown{display:none;position:absolute;top:calc(100% + 1px);left:0;background:var(--white);border:0.5px solid var(--border);border-top:2px solid var(--navy);min-width:210px;padding:6px 0;z-index:300;box-shadow:0 8px 24px rgba(13,43,94,.08);animation:dropIn .14s ease}
+@keyframes dropIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.nav-item:hover .dropdown{display:block}
+.dd-sec{padding:3px 0;border-bottom:0.5px solid var(--border)}
+.dd-sec:last-child{border:none}
+.dd-label{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#cbd5e1;padding:5px 18px 3px}
+.dropdown a{display:flex;align-items:center;gap:8px;padding:8px 18px;color:var(--muted);font-size:12px;text-decoration:none;transition:all .13s}
+.dropdown a:hover{color:var(--navy);background:var(--body);padding-left:22px}
+.dropdown a .dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;transition:opacity .13s;flex-shrink:0}
+.dropdown a:hover .dot{opacity:1}
+
+/* secondary cat nav */
+.cat-nav{background:var(--body);border-bottom:1px solid var(--border)}
+.cat-nav-inner{max-width:1280px;margin:0 auto;padding:0 56px;display:flex;align-items:center;height:38px;gap:0}
+.cat-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#cbd5e1;margin-right:16px;border-right:1px solid var(--border);padding-right:16px;white-space:nowrap;flex-shrink:0}
+.cat-links{display:flex;align-items:stretch}
+.cat-item{position:relative}
+.cat-link{display:flex;align-items:center;gap:5px;padding:0 14px;height:38px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .16s;white-space:nowrap;border-bottom:2px solid transparent;user-select:none}
+.cat-link:hover,.cat-item:hover>.cat-link{color:var(--navy);background:var(--white);border-bottom-color:var(--gold)}
+.cat-item:hover .dropdown{display:block}
+
+/* right nav */
+.nav-right{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;color:var(--muted);font-size:11.5px;letter-spacing:.04em;background:none;border:none;cursor:pointer;transition:color .2s;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.nav-btn:hover{color:var(--navy)}
+.nav-btn svg{width:14px;height:14px}
+.btn-login{background:var(--navy);color:var(--white);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 20px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .2s;border-radius:2px}
+.btn-login:hover{background:var(--navy-mid)}
+
+/* ── HERO ── */
+.hero{max-width:1280px;margin:0 auto;padding:96px 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-eyebrow{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;animation:fadeUp .5s ease .05s both}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.5vw,68px);font-weight:300;line-height:1.05;color:var(--navy);margin-bottom:4px;animation:fadeUp .6s ease .12s both}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-title strong{font-weight:600;display:block}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.75;max-width:400px;margin:24px 0 36px;font-weight:300;animation:fadeUp .6s ease .22s both}
+.hero-ctas{display:flex;gap:12px;align-items:center;animation:fadeUp .6s ease .3s both}
+.cta-primary{background:var(--navy);color:var(--white);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .2s,transform .15s;text-decoration:none;display:inline-block;border-radius:2px}
+.cta-primary:hover{background:var(--navy-mid);transform:translateY(-1px)}
+.cta-ghost{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .2s,border-color .2s}
+.cta-ghost:hover{color:var(--navy);border-color:var(--navy)}
+
+/* hero stats */
+.hero-stats{display:flex;gap:40px;margin-top:52px;padding-top:28px;border-top:1px solid var(--border);animation:fadeUp .6s ease .38s both}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--navy);line-height:1}
+.stat-lbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#cbd5e1;margin-top:4px}
+
+/* hero right — brand cards column */
+.hero-right{display:flex;flex-direction:column;gap:10px;animation:fadeUp .6s ease .18s both}
+.brand-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.brand-pill{background:var(--body);border:0.5px solid var(--border);border-radius:8px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .22s;text-decoration:none}
+.brand-pill:hover{border-color:var(--navy);background:var(--white);box-shadow:0 4px 16px rgba(13,43,94,.07);transform:translateY(-2px)}
+.brand-pill-left{display:flex;flex-direction:column;gap:2px}
+.brand-pill-name{font-size:13px;font-weight:500;color:var(--navy);letter-spacing:.02em}
+.brand-pill-cat{font-size:10.5px;color:var(--muted)}
+.brand-pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hero-cta-strip{background:var(--navy);border-radius:8px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.hero-cta-strip-text{font-size:13px;color:rgba(255,255,255,.7);font-weight:300}
+.hero-cta-strip-text strong{color:var(--white);font-weight:500;display:block;margin-bottom:2px}
+.hero-cta-strip a{background:var(--gold);color:var(--navy);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px 20px;border-radius:2px;text-decoration:none;font-weight:500;white-space:nowrap;transition:background .2s}
+.hero-cta-strip a:hover{background:#d4aa50}
+
+/* divider */
+.divider{max-width:1280px;margin:0 auto;padding:0 56px}
+.divider hr{border:none;border-top:1px solid var(--border)}
+
+/* ── TICKER ── */
+.ticker-wrap{background:var(--navy);overflow:hidden;padding:10px 0;margin:0}
+.ticker{display:flex;animation:ticker 26s linear infinite;width:max-content}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:0 28px;white-space:nowrap;font-weight:400}
+.ticker-sep{color:rgba(255,255,255,.2)}
+
+/* ── FEATURES ── */
+.features-section{max-width:1280px;margin:0 auto;padding:72px 56px}
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:8px;overflow:hidden}
+.feature-item{background:var(--white);padding:32px 28px;transition:background .2s}
+.feature-item:hover{background:var(--body)}
+.fi-icon{width:24px;height:24px;margin-bottom:14px;color:var(--navy)}
+.fi-title{font-size:13.5px;font-weight:500;color:var(--navy);margin-bottom:7px;letter-spacing:.01em}
+.fi-desc{font-size:12px;color:var(--muted);line-height:1.65;font-weight:300}
+
+/* ── CATEGORIES ── */
+.cat-section{background:var(--body);padding:72px 0}
+.cat-inner{max-width:1280px;margin:0 auto;padding:0 56px}
+.sec-eyebrow{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--navy);line-height:1.1;margin-bottom:36px}
+.sec-title em{font-style:italic}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+.sec-link{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .2s;white-space:nowrap}
+.sec-link:hover{color:var(--navy)}
+
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cat-card{background:var(--white);border:0.5px solid var(--border);border-radius:8px;padding:24px;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;gap:16px;text-decoration:none}
+.cat-card:hover{border-color:var(--navy);box-shadow:0 4px 20px rgba(13,43,94,.08);transform:translateY(-3px)}
+.cat-icon-box{width:40px;height:40px;background:var(--navy-light);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.cat-icon-box svg{width:20px;height:20px;color:var(--navy)}
+.cat-card-body{}
+.cat-card-count{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#cbd5e1;margin-bottom:6px}
+.cat-card-name{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.cat-card-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.55}
+.cat-card-arrow{font-size:16px;color:var(--border);margin-top:auto;transition:color .2s,transform .2s;align-self:flex-end}
+.cat-card:hover .cat-card-arrow{color:var(--navy);transform:translateX(3px)}
+
+/* ── BRANDS ── */
+.brands-section{max-width:1280px;margin:0 auto;padding:72px 56px}
+.brands-table{width:100%;border-collapse:collapse;border:0.5px solid var(--border);border-radius:8px;overflow:hidden}
+.brands-table thead{background:var(--body)}
+.brands-table th{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#cbd5e1;padding:12px 20px;text-align:left;font-weight:400;border-bottom:0.5px solid var(--border)}
+.brands-table td{padding:16px 20px;border-bottom:0.5px solid var(--border);font-size:13px;color:var(--muted);vertical-align:middle}
+.brands-table tr:last-child td{border-bottom:none}
+.brands-table tr:hover td{background:var(--body)}
+.brand-name-cell{display:flex;align-items:center;gap:10px}
+.brand-initial{width:32px;height:32px;border-radius:6px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--white);flex-shrink:0;letter-spacing:.04em}
+.brand-fullname{font-size:13px;font-weight:500;color:var(--navy)}
+.brand-website{font-size:11px;color:#cbd5e1}
+.cat-badge{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:3px;font-weight:500;display:inline-block}
+.cb-beauty{background:#fdf2f8;color:#be185d;border:0.5px solid #fce7f3}
+.cb-outdoor{background:#f0fdf4;color:#15803d;border:0.5px solid #dcfce7}
+.cb-home{background:#fffbeb;color:#b45309;border:0.5px solid #fef3c7}
+.cb-electronics{background:#eff6ff;color:#1d4ed8;border:0.5px solid #dbeafe}
+.sku-count{font-size:12px;color:var(--muted)}
+.status-badge{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:3px;font-weight:500}
+.sb-live{background:#f0fdf4;color:#15803d;border:0.5px solid #dcfce7}
+.sb-soon{background:#f8fafc;color:#94a3b8;border:0.5px solid var(--border)}
+.browse-btn{font-size:11px;color:var(--navy);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:1px;transition:border-color .2s}
+.browse-btn:hover{border-color:var(--navy)}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--navy);padding:72px 0}
+.how-inner{max-width:1280px;margin:0 auto;padding:0 56px}
+.how-section .sec-title{color:var(--white)}
+.how-section .sec-eyebrow{color:var(--gold)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:40px}
+.step{background:rgba(255,255,255,.02);padding:28px 24px;position:relative}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:rgba(255,255,255,.08);line-height:1;margin-bottom:14px}
+.step-title{font-size:13.5px;font-weight:500;color:var(--white);margin-bottom:8px}
+.step-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.65;font-weight:300}
+
+/* ── FOOTER ── */
+footer{background:#07122a;padding:60px 0 28px}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 56px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-logo svg{height:20px;width:auto;opacity:.25}
+.footer-desc{font-size:12px;color:rgba(255,255,255,.18);line-height:1.7;font-weight:300;margin-top:12px;max-width:240px}
+.fc-title{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.12);margin-bottom:14px;font-weight:500}
+.footer-col a{display:block;font-size:12px;color:rgba(255,255,255,.18);text-decoration:none;padding:3px 0;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.6)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.04);padding-top:20px;display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,.1)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ── MOBILE MENU DRAWER ── */
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--white);z-index:999;overflow-y:auto;padding:80px 24px 40px;flex-direction:column;gap:0}
+.mobile-menu.open{display:flex}
+.mobile-menu-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.mobile-menu-logo{position:absolute;top:20px;left:24px}
+.mobile-menu-logo svg{height:20px;width:auto}
+.mob-section{border-bottom:1px solid var(--border);padding:4px 0}
+.mob-section-title{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cbd5e1;padding:12px 0 6px;font-weight:500}
+.mob-link{display:block;font-size:15px;color:var(--navy);text-decoration:none;padding:10px 0;border-bottom:0.5px solid var(--border);font-weight:400}
+.mob-link:last-child{border-bottom:none}
+.mob-ctas{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.mob-cta-primary{background:var(--navy);color:var(--white);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px;text-align:center;text-decoration:none;border-radius:2px;font-weight:500}
+.mob-cta-ghost{border:1px solid var(--border);color:var(--navy);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:13px;text-align:center;text-decoration:none;border-radius:2px}
+
+@media(max-width:768px){
+  /* topbar */
+  .topbar{padding:6px 20px;font-size:10px}
+  .topbar .topbar-links{display:none}
+
+  /* nav */
+  nav{padding:0 20px;height:56px}
+  .nav-logo svg{height:20px}
+  .nav-links,.nav-right,.cat-nav{display:none}
+  .hamburger{display:flex}
+  .nav-outer{position:sticky;top:0;z-index:200}
+
+  /* hero */
+  .hero{grid-template-columns:1fr;gap:32px;padding:48px 20px 40px}
+  .hero-title{font-size:clamp(36px,9vw,52px)}
+  .hero-sub{font-size:13.5px;margin:18px 0 28px;max-width:100%}
+  .hero-stats{gap:24px;margin-top:36px;padding-top:20px}
+  .stat-num{font-size:22px}
+  .brand-strip{grid-template-columns:1fr}
+  .hero-cta-strip{flex-direction:column;gap:14px;align-items:flex-start}
+
+  /* ticker */
+  .ticker-item{font-size:9px;padding:0 18px}
+
+  /* features */
+  .features-section{padding:40px 20px}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .feature-item{padding:22px 18px}
+  .fi-title{font-size:12.5px}
+  .fi-desc{font-size:11.5px}
+
+  /* categories */
+  .cat-section{padding:48px 0}
+  .cat-inner{padding:0 20px}
+  .cat-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .cat-card{padding:18px 14px}
+  .cat-card-name{font-size:13.5px}
+  .cat-card-desc{display:none}
+  .sec-title{font-size:28px}
+
+  /* brands table — scrollable */
+  .brands-section{padding:48px 20px}
+  .brands-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .brands-table{min-width:560px}
+
+  /* how it works */
+  .how-section{padding:48px 0}
+  .how-inner{padding:0 20px}
+  .steps-grid{grid-template-columns:1fr 1fr;gap:1px}
+  .step{padding:22px 18px}
+  .step-num{font-size:28px}
+  .step-title{font-size:12.5px}
+  .step-desc{font-size:11.5px}
+
+  /* footer */
+  footer{padding:44px 0 24px}
+  .footer-inner{padding:0 20px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .footer-bottom{flex-direction:column;gap:6px;font-size:10px}
+}
+
+@media(max-width:480px){
+  .features-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .cat-card-desc{display:block}
+  .steps-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column;align-items:flex-start}
+  .cta-primary,.cta-ghost{width:100%;text-align:center;padding:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>B2B Wholesale Platform &nbsp;·&nbsp; Italy &amp; EU</span>
+  <div class="topbar-links"><a href="#">Support</a><a href="#">IT / EN</a><a href="#">My Account</a></div>
+</div>
+
+<!-- NAV -->
+<div class="nav-outer">
+  <nav>
+    <div class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="61" viewBox="0 0 400 61" fill="none">
+        <path d="M1.59036 12.4355V1.55957H32.5766L24.1118 12.4355H1.59036Z" fill="#0d2b5e"/>
+        <path d="M42.3753 1.55957H36.1678L0 47.7825V58.8124H6.72053L42.3753 12.4355V1.55957Z" fill="#0d2b5e"/>
+        <path d="M10.363 58.8124L18.366 47.7825H42.837V58.8124H10.363Z" fill="#0d2b5e"/>
+        <path d="M113.531 11.6661V0.12323C121.534 -0.533433 127.433 3.37234 129.383 5.40731C134.513 9.63458 135.283 16.5398 135.026 19.464L122.97 20.2335C123.011 12.5588 116.694 11.3241 113.531 11.6661Z" fill="#0d2b5e"/>
+        <path d="M135.026 27.2106H113.531L113.582 37.1631H123.945V46.2948C122.755 47.6082 116.54 48.3469 113.582 48.5521V60.1976C122.816 60.0745 131.726 57.7864 135.026 56.6578V27.2106Z" fill="#0d2b5e"/>
+        <path d="M100.808 18.5406C102.942 12.8769 108.161 11.5977 110.504 11.6661V0.12323C106.113 -0.533441 101.116 1.59389 99.1662 2.73963C94.7338 4.46337 91.4025 9.40886 90.2908 11.6661C87.5 15.6471 86.3919 24.0299 86.1866 27.7236C85.2017 34.3313 87.6231 42.8576 88.9569 46.2948C90.5576 50.9736 94.7882 54.8793 96.7035 56.2474C100.726 59.5307 107.682 60.2489 110.658 60.1976V48.5521C108.113 48.5669 105.425 47.0535 104.399 46.2948C101.28 44.489 99.9528 39.4546 99.6792 37.1631C99.1867 34.7827 99.132 29.5363 99.1662 27.2106C99.2483 23.2706 100.295 19.7889 100.808 18.5406Z" fill="#0d2b5e"/>
+        <path d="M160.112 1.45703H148.312V59.0176H160.112V1.45703Z" fill="#0d2b5e"/>
+        <path d="M182.993 59.0176H163.087V48.0904H182.993V59.0176Z" fill="#0d2b5e"/>
+        <path d="M377.12 1.30322H365.32V58.8638H377.12V1.30322Z" fill="#0d2b5e"/>
+        <path d="M400 58.8638H380.095V47.9365H400V58.8638Z" fill="#0d2b5e"/>
+        <path d="M266.719 1.45703H254.715V58.5559H266.719V1.45703Z" fill="#0d2b5e"/>
+        <path d="M280.161 1.45703H269.644V12.3843H277.852C281.494 12.7434 284.059 13.9234 284.059 18.1301C284.059 22 280.93 23.1406 279.288 23.4655H269.49V34.2389H279.288C281.494 34.4612 285.086 36.1571 285.086 41.3698C285.086 46.5826 280.754 47.6799 278.878 47.6799L269.49 48.0904V58.5559H283.085C295 56.5 297.193 51.5117 297.193 41.9854C297.193 34.2389 291.926 29.5191 288.882 28.0314C291.379 27.467 296.767 24.9386 295.602 13.9234C294.5 3.5 285.051 1.47413 280.161 1.45703Z" fill="#0d2b5e"/>
+        <path d="M304.734 58.8125L322.536 6.12553L327.769 23.8759L317.303 58.8125H304.734Z" fill="#0d2b5e"/>
+        <path d="M323.203 49.1164L326.281 38.7535H334.9L324.178 1.40576H336.028L354.292 58.8125H340.697L337.824 49.1164H323.203Z" fill="#0d2b5e"/>
+        <circle cx="216.903" cy="30.5966" r="30.1141" fill="#0d2b5e"/>
+        <path d="M190.074 19.8229C190.638 20.165 192.639 20.8592 196.128 20.9003C199.616 20.9413 203.635 17.5315 205.208 15.8214C206.046 15.0519 208.214 14.0669 210.184 16.2831C211.944 18.2629 212.47 22.1096 212.538 24.3341C212.553 24.815 212.528 25.3165 212.26 25.7158C212.026 26.064 211.641 26.3922 211.057 26.4409C209.317 26.4871 206.833 27.0262 204.699 28.4551C200.244 31.4382 193.951 35.909 192.958 30.6404C192.868 30.165 192.923 29.4408 192.53 29.1587C192.035 28.8031 190.876 28.6197 188.484 29.2112L187.868 29.4164M190.074 19.8229C188.48 23.3934 187.851 27.5524 187.868 29.4164M190.074 19.8229C191.87 15.8008 195.717 7.46948 206.183 3.81679M187.868 29.4164C187.714 32.8194 188.946 40.6821 192.485 46.0895C194.615 49.3427 199.165 55.5186 206.593 57.8169C214.022 60.1152 216.854 59.6638 216.854 59.6638M216.854 59.6638C217.347 58.8223 218.742 56.514 223.01 55.529C224.481 55.1699 227.894 54.8621 229.782 56.5037M216.854 59.6638C222.548 59.6638 228.38 57.7179 229.782 56.5037M229.782 56.5037C233.031 55.1357 238.708 49.506 242.146 42.6009L242.812 41.4723M242.812 41.4723C246.219 31.3351 242.488 21.6185 240.196 18.0274M240.196 18.0274C239.17 15.8727 237.795 13.8275 235.835 11.8454M206.183 3.81679C208.286 6.07407 214.683 9.08035 222.522 3.66288M206.183 3.81679C212.038 1.77324 217.856 2.31066 222.522 3.66288M230.859 7.51052C229.157 6.29764 226.196 4.72766 222.522 3.66288M230.859 7.51052C230.254 7.81333 229.578 7.93998 228.906 8.02025C227.545 8.18277 225.609 8.76248 224.344 10.2808C223.126 11.7424 222.435 13.539 222.104 14.795C221.917 15.5015 221.762 16.2745 221.163 16.6935C220.65 17.0526 218.188 17.617 218.342 19.8742C218.376 20.4215 218.588 21.5877 219.162 21.875C219.583 22.0853 220.963 21.8321 222.109 21.5538C222.847 21.3746 223.601 21.2594 224.36 21.2594H226.806C227.08 21.2594 227.658 21.0952 227.781 20.4386C227.886 19.8768 228.475 19.0999 228.878 18.6408C228.999 18.5032 229.138 18.3848 229.29 18.2817C229.79 17.9408 230.503 17.4854 231.233 17.0792C232.195 16.5438 232.787 15.2271 232.297 14.2412C231.924 13.4896 232.383 12.4784 233.211 12.3378C234.167 12.1753 235.23 11.9841 235.835 11.8454M230.859 7.51052C232.117 8.442 234.043 10.0317 235.835 11.8454" stroke="#0d2b5e" stroke-width="0.8"/>
+      </svg>
+    </div>
+
+    <div class="nav-links">
+      <div class="nav-item">
+        <div class="nav-link">Brands <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec"><div class="dd-label">Beauty</div>
+            <a href="#"><span class="dot"></span>SHEGLAM — Cosmetics</a>
+            <a href="#"><span class="dot"></span>Brand B — Skincare</a>
+            <a href="#"><span class="dot"></span>Brand C — Fragrance</a>
+          </div>
+          <div class="dd-sec"><div class="dd-label">Outdoor &amp; Sports</div>
+            <a href="#"><span class="dot"></span>OutdoorMaster.it</a>
+          </div>
+          <div class="dd-sec"><div class="dd-label">Home &amp; Living</div>
+            <a href="#"><span class="dot"></span>Vakume Home</a>
+          </div>
+          <div class="dd-sec"><div class="dd-label">Electronics</div>
+            <a href="#"><span class="dot"></span>Coming soon</a>
+          </div>
+          <div class="dd-sec"><a href="#"><span class="dot"></span>View all brands →</a></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">Orders <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>My Orders</a>
+            <a href="#"><span class="dot"></span>Order History</a>
+            <a href="#"><span class="dot"></span>Pending Invoices</a>
+            <a href="#"><span class="dot"></span>Track Shipment</a>
+          </div>
+          <div class="dd-sec"><a href="#"><span class="dot"></span>Returns &amp; Claims</a></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">Pricing <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>My Price List</a>
+            <a href="#"><span class="dot"></span>Volume Tiers</a>
+            <a href="#"><span class="dot"></span>MOQ Calculator</a>
+          </div>
+          <div class="dd-sec"><a href="#"><span class="dot"></span>Request Custom Quote</a></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">Inventory <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>Live Stock Levels</a>
+            <a href="#"><span class="dot"></span>Warehouse Locations</a>
+            <a href="#"><span class="dot"></span>Backorder Status</a>
+            <a href="#"><span class="dot"></span>FTP Sync Status</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">Account <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>Dashboard</a>
+            <a href="#"><span class="dot"></span>Company Profile</a>
+            <a href="#"><span class="dot"></span>Approved Brands</a>
+            <a href="#"><span class="dot"></span>Credit Limit</a>
+            <a href="#"><span class="dot"></span>Payment Terms</a>
+          </div>
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>Users &amp; Permissions</a>
+            <a href="#"><span class="dot"></span>Documents</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">Support <span class="ch">▾</span></div>
+        <div class="dropdown">
+          <div class="dd-sec">
+            <a href="#"><span class="dot"></span>Help Centre</a>
+            <a href="#"><span class="dot"></span>Contact Rep</a>
+            <a href="#"><span class="dot"></span>Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="nav-btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Cart</span>
+      </button>
+      <button class="btn-login">Sign In</button>
+    </div>
+
+    <!-- HAMBURGER (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU DRAWER -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="menuClose" aria-label="Close">&#10005;</button>
+    <div class="mobile-menu-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="160" height="24" viewBox="0 0 400 61" fill="none">
+        <path d="M1.59036 12.4355V1.55957H32.5766L24.1118 12.4355H1.59036Z" fill="#0d2b5e"/>
+        <path d="M42.3753 1.55957H36.1678L0 47.7825V58.8124H6.72053L42.3753 12.4355V1.55957Z" fill="#0d2b5e"/>
+        <path d="M10.363 58.8124L18.366 47.7825H42.837V58.8124H10.363Z" fill="#0d2b5e"/>
+        <path d="M160.112 1.45703H148.312V59.0176H160.112V1.45703Z" fill="#0d2b5e"/>
+        <path d="M182.993 59.0176H163.087V48.0904H182.993V59.0176Z" fill="#0d2b5e"/>
+        <path d="M377.12 1.30322H365.32V58.8638H377.12V1.30322Z" fill="#0d2b5e"/>
+        <path d="M400 58.8638H380.095V47.9365H400V58.8638Z" fill="#0d2b5e"/>
+        <circle cx="216.903" cy="30.5966" r="30.1141" fill="#0d2b5e"/>
+      </svg>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-title">Brands</div>
+      <a href="#" class="mob-link">SHEGLAM — Cosmetics</a>
+      <a href="#" class="mob-link">OutdoorMaster.it</a>
+      <a href="#" class="mob-link">Vakume Home</a>
+      <a href="#" class="mob-link">Brand B — Skincare</a>
+      <a href="#" class="mob-link">Brand C — Fragrance</a>
+      <a href="#" class="mob-link">View all brands &rarr;</a>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-title">Categories</div>
+      <a href="#" class="mob-link">Beauty &amp; Cosmetics</a>
+      <a href="#" class="mob-link">Outdoor &amp; Sports</a>
+      <a href="#" class="mob-link">Home &amp; Living</a>
+      <a href="#" class="mob-link">Electronics</a>
+      <a href="#" class="mob-link">New Arrivals</a>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-title">Account</div>
+      <a href="#" class="mob-link">My Orders</a>
+      <a href="#" class="mob-link">Pricing &amp; Terms</a>
+      <a href="#" class="mob-link">Inventory</a>
+      <a href="#" class="mob-link">Support</a>
+    </div>
+    <div class="mob-ctas">
+      <a href="#" class="mob-cta-primary">Sign In</a>
+      <a href="#" class="mob-cta-ghost">Request Access</a>
+    </div>
+  </div>
+
+  <!-- CATEGORY NAV STRIP -->
+  <div class="cat-nav">
+    <div class="cat-nav-inner">
+      <span class="cat-label">Categories</span>
+      <div class="cat-links">
+        <div class="cat-item"><div class="cat-link">All Products</div></div>
+        <div class="cat-item">
+          <div class="cat-link">Beauty &amp; Cosmetics <span class="ch">▾</span></div>
+          <div class="dropdown">
+            <div class="dd-sec">
+              <a href="#"><span class="dot"></span>Makeup</a>
+              <a href="#"><span class="dot"></span>Skincare</a>
+              <a href="#"><span class="dot"></span>Fragrance</a>
+              <a href="#"><span class="dot"></span>Haircare</a>
+              <a href="#"><span class="dot"></span>Tools &amp; Brushes</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="cat-link">Outdoor &amp; Sports <span class="ch">▾</span></div>
+          <div class="dropdown">
+            <div class="dd-sec">
+              <a href="#"><span class="dot"></span>Goggles &amp; Eyewear</a>
+              <a href="#"><span class="dot"></span>Helmets &amp; Safety</a>
+              <a href="#"><span class="dot"></span>Bags &amp; Packs</a>
+              <a href="#"><span class="dot"></span>Apparel</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="cat-link">Home &amp; Living <span class="ch">▾</span></div>
+          <div class="dropdown">
+            <div class="dd-sec">
+              <a href="#"><span class="dot"></span>Kitchen &amp; Dining</a>
+              <a href="#"><span class="dot"></span>Storage &amp; Organisation</a>
+              <a href="#"><span class="dot"></span>Décor</a>
+              <a href="#"><span class="dot"></span>Cleaning &amp; Care</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="cat-link">Electronics <span class="ch">▾</span></div>
+          <div class="dropdown">
+            <div class="dd-sec">
+              <a href="#"><span class="dot"></span>Personal Electronics</a>
+              <a href="#"><span class="dot"></span>Audio &amp; Visual</a>
+              <a href="#"><span class="dot"></span>Smart Home</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item"><div class="cat-link">New Arrivals</div></div>
+        <div class="cat-item"><div class="cat-link">Promotions</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <!-- LEFT: TYPE -->
+    <div>
+      <div class="hero-eyebrow">B2B Wholesale · Italy &amp; EU</div>
+      <h1 class="hero-title">
+        Every brand.<br>
+        One <em>platform.</em>
+      </h1>
+      <p class="hero-sub">Beauty, outdoor, home and electronics — all your wholesale brands in one place. Live inventory from Italian warehouses. No surprises.</p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Request Access</a>
+        <a href="#" class="cta-ghost">Browse catalog →</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">12+</div><div class="stat-lbl">Brands</div></div>
+        <div><div class="stat-num">4</div><div class="stat-lbl">Categories</div></div>
+        <div><div class="stat-num">EU</div><div class="stat-lbl">Coverage</div></div>
+        <div><div class="stat-num">NET30</div><div class="stat-lbl">Terms</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: BRAND PILLS + CTA -->
+    <div class="hero-right">
+      <div class="brand-strip">
+        <a href="#" class="brand-pill">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name">SHEGLAM</div>
+            <div class="brand-pill-cat">Beauty · 200+ SKUs</div>
+          </div>
+          <div class="brand-pill-dot" style="background:#e8738a"></div>
+        </a>
+        <a href="#" class="brand-pill">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name">OutdoorMaster</div>
+            <div class="brand-pill-cat">Outdoor · 150+ SKUs</div>
+          </div>
+          <div class="brand-pill-dot" style="background:#4ecf9a"></div>
+        </a>
+        <a href="#" class="brand-pill">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name">Vakume Home</div>
+            <div class="brand-pill-cat">Home · 120+ SKUs</div>
+          </div>
+          <div class="brand-pill-dot" style="background:#c49a3a"></div>
+        </a>
+        <a href="#" class="brand-pill">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name">Brand B</div>
+            <div class="brand-pill-cat">Skincare · 80+ SKUs</div>
+          </div>
+          <div class="brand-pill-dot" style="background:#7aaae8"></div>
+        </a>
+        <a href="#" class="brand-pill">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name">Brand C</div>
+            <div class="brand-pill-cat">Fragrance · 40+ SKUs</div>
+          </div>
+          <div class="brand-pill-dot" style="background:#a78bfa"></div>
+        </a>
+        <a href="#" class="brand-pill" style="border-style:dashed;opacity:.5">
+          <div class="brand-pill-left">
+            <div class="brand-pill-name" style="color:var(--muted)">+ More brands</div>
+            <div class="brand-pill-cat">Electronics · Coming soon</div>
+          </div>
+          <div class="brand-pill-dot" style="background:var(--border)"></div>
+        </a>
+      </div>
+      <div class="hero-cta-strip">
+        <div class="hero-cta-strip-text">
+          <strong>Approved buyers only</strong>
+          Apply for wholesale access to get started.
+        </div>
+        <a href="#">Apply now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Free shipping over €500 <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">NET 30 &amp; NET 60 terms <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Beauty · Outdoor · Home · Electronics <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Live warehouse inventory <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Italy-based warehouses <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Volume pricing tiers <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">OutdoorMaster · Vakume Home · SHEGLAM <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Free shipping over €500 <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">NET 30 &amp; NET 60 terms <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Beauty · Outdoor · Home · Electronics <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Live warehouse inventory <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Italy-based warehouses <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Volume pricing tiers <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">OutdoorMaster · Vakume Home · SHEGLAM <span class="ticker-sep">·</span></span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-section">
+  <div class="features-grid">
+    <div class="feature-item">
+      <svg class="fi-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <div class="fi-title">Multi-category access</div>
+      <div class="fi-desc">One account covers every brand and category on the platform — no separate logins.</div>
+    </div>
+    <div class="feature-item">
+      <svg class="fi-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div class="fi-title">Live warehouse stock</div>
+      <div class="fi-desc">Inventory synced in real time via FTP from Italian warehouses. What you see is what's available.</div>
+    </div>
+    <div class="feature-item">
+      <svg class="fi-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      <div class="fi-title">Flexible payment terms</div>
+      <div class="fi-desc">NET 30 and NET 60 for approved buyers. Invoice-based ordering with automated processing.</div>
+    </div>
+    <div class="feature-item">
+      <svg class="fi-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="fi-title">Volume pricing tiers</div>
+      <div class="fi-desc">Automatic discounts per brand and category. The more you order, the better your rate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cat-section">
+  <div class="cat-inner">
+    <div class="sec-header">
+      <div>
+        <div class="sec-eyebrow">Shop by category</div>
+        <h2 class="sec-title">What are you <em>looking for?</em></h2>
+      </div>
+      <a href="#" class="sec-link">All categories →</a>
+    </div>
+    <div class="cat-grid">
+      <a href="#" class="cat-card">
+        <div class="cat-icon-box">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zm0 12c-5 0-9 2.5-9 5v1h18v-1c0-2.5-4-5-9-5z"/></svg>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-count">3 brands · 320+ SKUs</div>
+          <div class="cat-card-name">Beauty &amp; Cosmetics</div>
+          <div class="cat-card-desc">Makeup, skincare, fragrance and haircare from top brands.</div>
+        </div>
+        <div class="cat-card-arrow">→</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon-box">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 17l4-8 4 4 3-5 4 9"/><path d="M21 21H3"/></svg>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-count">1 brand · 150+ SKUs</div>
+          <div class="cat-card-name">Outdoor &amp; Sports</div>
+          <div class="cat-card-desc">Goggles, helmets, bags and outdoor gear from OutdoorMaster.</div>
+        </div>
+        <div class="cat-card-arrow">→</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon-box">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-count">1 brand · 120+ SKUs</div>
+          <div class="cat-card-name">Home &amp; Living</div>
+          <div class="cat-card-desc">Kitchen, storage, décor and home essentials from Vakume.</div>
+        </div>
+        <div class="cat-card-arrow">→</div>
+      </a>
+      <a href="#" class="cat-card" style="opacity:.6">
+        <div class="cat-icon-box">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8l-2 4h12l-2-4z"/></svg>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-count">Coming soon</div>
+          <div class="cat-card-name">Electronics</div>
+          <div class="cat-card-desc">Consumer electronics and accessories. New brands joining soon.</div>
+        </div>
+        <div class="cat-card-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- BRANDS TABLE -->
+<div class="brands-section">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow">Our brand portfolio</div>
+      <h2 class="sec-title">The brands <em>you carry</em></h2>
+    </div>
+    <a href="#" class="sec-link">All brands →</a>
+  </div>
+  <table class="brands-table">
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>SKUs</th>
+        <th>Terms</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#0d2b5e">SG</div><div><div class="brand-fullname">SHEGLAM</div><div class="brand-website">sheglam.com</div></div></div></td>
+        <td><span class="cat-badge cb-beauty">Beauty</span></td>
+        <td class="sku-count">200+</td>
+        <td>NET 30 / 60</td>
+        <td><span class="status-badge sb-live">Live</span></td>
+        <td><a href="#" class="browse-btn">Browse →</a></td>
+      </tr>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#15803d">OM</div><div><div class="brand-fullname">OutdoorMaster</div><div class="brand-website">outdoormaster.it</div></div></div></td>
+        <td><span class="cat-badge cb-outdoor">Outdoor</span></td>
+        <td class="sku-count">150+</td>
+        <td>NET 30 / 60</td>
+        <td><span class="status-badge sb-live">Live</span></td>
+        <td><a href="#" class="browse-btn">Browse →</a></td>
+      </tr>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#b45309">VH</div><div><div class="brand-fullname">Vakume Home</div><div class="brand-website">vakumehome.com</div></div></div></td>
+        <td><span class="cat-badge cb-home">Home</span></td>
+        <td class="sku-count">120+</td>
+        <td>NET 30</td>
+        <td><span class="status-badge sb-live">Live</span></td>
+        <td><a href="#" class="browse-btn">Browse →</a></td>
+      </tr>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#7aaae8">BB</div><div><div class="brand-fullname">Brand B</div><div class="brand-website">brand-b.com</div></div></div></td>
+        <td><span class="cat-badge cb-beauty">Beauty</span></td>
+        <td class="sku-count">80+</td>
+        <td>NET 30 / 60</td>
+        <td><span class="status-badge sb-live">Live</span></td>
+        <td><a href="#" class="browse-btn">Browse →</a></td>
+      </tr>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#a78bfa">BC</div><div><div class="brand-fullname">Brand C</div><div class="brand-website">brand-c.com</div></div></div></td>
+        <td><span class="cat-badge cb-beauty">Beauty</span></td>
+        <td class="sku-count">40+</td>
+        <td>NET 30</td>
+        <td><span class="status-badge sb-live">Live</span></td>
+        <td><a href="#" class="browse-btn">Browse →</a></td>
+      </tr>
+      <tr>
+        <td><div class="brand-name-cell"><div class="brand-initial" style="background:#e2e8f0;color:#94a3b8">E</div><div><div class="brand-fullname" style="color:var(--muted)">Electronics Brand</div><div class="brand-website">—</div></div></div></td>
+        <td><span class="cat-badge cb-electronics">Electronics</span></td>
+        <td class="sku-count">—</td>
+        <td>TBD</td>
+        <td><span class="status-badge sb-soon">Soon</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="how-inner">
+    <div class="sec-eyebrow">How it works</div>
+    <h2 class="sec-title">From application <em>to order</em></h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Apply for access</div>
+        <div class="step-desc">Submit your company details. We review and approve wholesale accounts within 48 hours.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Get approved</div>
+        <div class="step-desc">Once approved, you get access to all brands relevant to your market and receive your credit terms.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Browse &amp; order</div>
+        <div class="step-desc">Browse live catalog with real-time stock levels. Add to cart across multiple brands in one order.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Pay on your terms</div>
+        <div class="step-desc">Receive a consolidated invoice. Pay within your NET 30 or NET 60 window via Stripe.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="400" height="61" viewBox="0 0 400 61" fill="none">
+            <path d="M1.59036 12.4355V1.55957H32.5766L24.1118 12.4355H1.59036Z" fill="white"/>
+            <path d="M42.3753 1.55957H36.1678L0 47.7825V58.8124H6.72053L42.3753 12.4355V1.55957Z" fill="white"/>
+            <path d="M10.363 58.8124L18.366 47.7825H42.837V58.8124H10.363Z" fill="white"/>
+            <path d="M113.531 11.6661V0.12323C121.534 -0.533433 127.433 3.37234 129.383 5.40731C134.513 9.63458 135.283 16.5398 135.026 19.464L122.97 20.2335C123.011 12.5588 116.694 11.3241 113.531 11.6661Z" fill="white"/>
+            <path d="M135.026 27.2106H113.531L113.582 37.1631H123.945V46.2948C122.755 47.6082 116.54 48.3469 113.582 48.5521V60.1976C122.816 60.0745 131.726 57.7864 135.026 56.6578V27.2106Z" fill="white"/>
+            <path d="M100.808 18.5406C102.942 12.8769 108.161 11.5977 110.504 11.6661V0.12323C106.113 -0.533441 101.116 1.59389 99.1662 2.73963C94.7338 4.46337 91.4025 9.40886 90.2908 11.6661C87.5 15.6471 86.3919 24.0299 86.1866 27.7236C85.2017 34.3313 87.6231 42.8576 88.9569 46.2948C90.5576 50.9736 94.7882 54.8793 96.7035 56.2474C100.726 59.5307 107.682 60.2489 110.658 60.1976V48.5521C108.113 48.5669 105.425 47.0535 104.399 46.2948C101.28 44.489 99.9528 39.4546 99.6792 37.1631C99.1867 34.7827 99.132 29.5363 99.1662 27.2106C99.2483 23.2706 100.295 19.7889 100.808 18.5406Z" fill="white"/>
+            <path d="M160.112 1.45703H148.312V59.0176H160.112V1.45703Z" fill="white"/>
+            <path d="M182.993 59.0176H163.087V48.0904H182.993V59.0176Z" fill="white"/>
+            <path d="M377.12 1.30322H365.32V58.8638H377.12V1.30322Z" fill="white"/>
+            <path d="M400 58.8638H380.095V47.9365H400V58.8638Z" fill="white"/>
+            <path d="M266.719 1.45703H254.715V58.5559H266.719V1.45703Z" fill="white"/>
+            <path d="M280.161 1.45703H269.644V12.3843H277.852C281.494 12.7434 284.059 13.9234 284.059 18.1301C284.059 22 280.93 23.1406 279.288 23.4655H269.49V34.2389H279.288C281.494 34.4612 285.086 36.1571 285.086 41.3698C285.086 46.5826 280.754 47.6799 278.878 47.6799L269.49 48.0904V58.5559H283.085C295 56.5 297.193 51.5117 297.193 41.9854C297.193 34.2389 291.926 29.5191 288.882 28.0314C291.379 27.467 296.767 24.9386 295.602 13.9234C294.5 3.5 285.051 1.47413 280.161 1.45703Z" fill="white"/>
+            <circle cx="216.903" cy="30.5966" r="30.1141" fill="white"/>
+          </svg>
+        </div>
+        <p class="footer-desc">B2B wholesale platform for beauty, outdoor, home &amp; electronics brands. Italy-first, EU-ready.</p>
+      </div>
+      <div class="footer-col">
+        <div class="fc-title">Platform</div>
+        <a href="#">Browse Brands</a>
+        <a href="#">Product Catalog</a>
+        <a href="#">Pricing Tiers</a>
+        <a href="#">Request Access</a>
+      </div>
+      <div class="footer-col">
+        <div class="fc-title">Account</div>
+        <a href="#">Sign In</a>
+        <a href="#">My Orders</a>
+        <a href="#">Invoices</a>
+        <a href="#">Credit Limit</a>
+      </div>
+      <div class="footer-col">
+        <div class="fc-title">Company</div>
+        <a href="#">About ZGlobal</a>
+        <a href="#">Become a Buyer</a>
+        <a href="#">Add Your Brand</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ZGlobal Wholesale Platform. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service · Cookie Policy</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuClose = document.getElementById('menuClose');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+menuClose.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+});
+// wrap brands table for horizontal scroll on mobile
+const table = document.querySelector('.brands-table');
+if(table) {
+  const wrap = document.createElement('div');
+  wrap.className = 'brands-table-wrap';
+  table.parentNode.insertBefore(wrap, table);
+  wrap.appendChild(table);
+}
+</script>
+</body>
+</html>
