@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://www.zglobalcorp.com/wp-content/uploads/2024/12/favicon.png">
 <title>ZGlobal — Multi-Brand Wholesale Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -24,19 +25,21 @@ html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
 
 /* ── TOPBAR ── */
-.topbar{background:var(--navy);padding:7px 56px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.06em}
+.topbar{background:var(--navy-mid);color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em}
+.topbar-inner{max-width:1280px;margin:0 auto;padding:7px 56px;display:flex;justify-content:space-between;align-items:center}
 .topbar a{color:rgba(255,255,255,.35);text-decoration:none;margin-left:18px;transition:color .2s}
 .topbar a:hover{color:rgba(255,255,255,.8)}
 
 /* ── NAV ── */
-.nav-outer{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-outer{background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.1);position:sticky;top:0;z-index:200}
 nav{max-width:1280px;margin:0 auto;padding:0 56px;display:flex;align-items:center;height:60px}
 .nav-logo{display:flex;align-items:center;margin-right:48px;flex-shrink:0}
 .nav-logo svg{height:24px;width:auto}
+.logo-img{height:26px;width:auto;display:block}
 .nav-links{display:flex;align-items:stretch;flex:1}
 .nav-item{position:relative}
-.nav-link{display:flex;align-items:center;gap:4px;padding:0 15px;height:60px;color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .18s;white-space:nowrap;border-bottom:2px solid transparent;user-select:none}
-.nav-link:hover,.nav-item:hover>.nav-link{color:var(--navy);border-bottom-color:var(--gold)}
+.nav-link{display:flex;align-items:center;gap:4px;padding:0 15px;height:60px;color:rgba(255,255,255,0.85);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .18s;white-space:nowrap;border-bottom:2px solid transparent;user-select:none}
+.nav-link:hover,.nav-item:hover>.nav-link{color:#fff;border-bottom-color:var(--gold)}
 .ch{font-size:7px;opacity:.4;transition:transform .18s}
 .nav-item:hover>.nav-link .ch{transform:rotate(180deg)}
 
@@ -64,11 +67,11 @@ nav{max-width:1280px;margin:0 auto;padding:0 56px;display:flex;align-items:cente
 
 /* right nav */
 .nav-right{display:flex;align-items:center;gap:4px;margin-left:auto}
-.nav-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;color:var(--muted);font-size:11.5px;letter-spacing:.04em;background:none;border:none;cursor:pointer;transition:color .2s;text-transform:uppercase;font-family:'DM Sans',sans-serif}
-.nav-btn:hover{color:var(--navy)}
+.nav-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;color:rgba(255,255,255,0.8);font-size:11.5px;letter-spacing:.04em;background:none;border:none;cursor:pointer;transition:color .2s;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.nav-btn:hover{color:#fff}
 .nav-btn svg{width:14px;height:14px}
-.btn-login{background:var(--navy);color:var(--white);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 20px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .2s;border-radius:2px}
-.btn-login:hover{background:var(--navy-mid)}
+.btn-login{background:var(--gold);color:var(--navy);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 20px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:background .2s;border-radius:2px}
+.btn-login:hover{background:#d4a94a}
 
 /* ── HERO ── */
 .hero{max-width:1280px;margin:0 auto;padding:96px 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
@@ -185,6 +188,7 @@ footer{background:#07122a;padding:60px 0 28px}
 .footer-inner{max-width:1280px;margin:0 auto;padding:0 56px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
 .footer-logo svg{height:20px;width:auto;opacity:.25}
+.footer-logo-img{height:24px;width:auto;opacity:.55;display:block}
 .footer-desc{font-size:12px;color:rgba(255,255,255,.18);line-height:1.7;font-weight:300;margin-top:12px;max-width:240px}
 .fc-title{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.12);margin-bottom:14px;font-weight:500}
 .footer-col a{display:block;font-size:12px;color:rgba(255,255,255,.18);text-decoration:none;padding:3px 0;transition:color .2s}
@@ -290,32 +294,17 @@ footer{background:#07122a;padding:60px 0 28px}
 
 <!-- TOPBAR -->
 <div class="topbar">
+  <div class="topbar-inner">
   <span>B2B Wholesale Platform &nbsp;·&nbsp; Italy &amp; EU</span>
   <div class="topbar-links"><a href="#">Support</a><a href="#">IT / EN</a><a href="#">My Account</a></div>
+  </div>
 </div>
 
 <!-- NAV -->
 <div class="nav-outer">
   <nav>
     <div class="nav-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="61" viewBox="0 0 400 61" fill="none">
-        <path d="M1.59036 12.4355V1.55957H32.5766L24.1118 12.4355H1.59036Z" fill="#0d2b5e"/>
-        <path d="M42.3753 1.55957H36.1678L0 47.7825V58.8124H6.72053L42.3753 12.4355V1.55957Z" fill="#0d2b5e"/>
-        <path d="M10.363 58.8124L18.366 47.7825H42.837V58.8124H10.363Z" fill="#0d2b5e"/>
-        <path d="M113.531 11.6661V0.12323C121.534 -0.533433 127.433 3.37234 129.383 5.40731C134.513 9.63458 135.283 16.5398 135.026 19.464L122.97 20.2335C123.011 12.5588 116.694 11.3241 113.531 11.6661Z" fill="#0d2b5e"/>
-        <path d="M135.026 27.2106H113.531L113.582 37.1631H123.945V46.2948C122.755 47.6082 116.54 48.3469 113.582 48.5521V60.1976C122.816 60.0745 131.726 57.7864 135.026 56.6578V27.2106Z" fill="#0d2b5e"/>
-        <path d="M100.808 18.5406C102.942 12.8769 108.161 11.5977 110.504 11.6661V0.12323C106.113 -0.533441 101.116 1.59389 99.1662 2.73963C94.7338 4.46337 91.4025 9.40886 90.2908 11.6661C87.5 15.6471 86.3919 24.0299 86.1866 27.7236C85.2017 34.3313 87.6231 42.8576 88.9569 46.2948C90.5576 50.9736 94.7882 54.8793 96.7035 56.2474C100.726 59.5307 107.682 60.2489 110.658 60.1976V48.5521C108.113 48.5669 105.425 47.0535 104.399 46.2948C101.28 44.489 99.9528 39.4546 99.6792 37.1631C99.1867 34.7827 99.132 29.5363 99.1662 27.2106C99.2483 23.2706 100.295 19.7889 100.808 18.5406Z" fill="#0d2b5e"/>
-        <path d="M160.112 1.45703H148.312V59.0176H160.112V1.45703Z" fill="#0d2b5e"/>
-        <path d="M182.993 59.0176H163.087V48.0904H182.993V59.0176Z" fill="#0d2b5e"/>
-        <path d="M377.12 1.30322H365.32V58.8638H377.12V1.30322Z" fill="#0d2b5e"/>
-        <path d="M400 58.8638H380.095V47.9365H400V58.8638Z" fill="#0d2b5e"/>
-        <path d="M266.719 1.45703H254.715V58.5559H266.719V1.45703Z" fill="#0d2b5e"/>
-        <path d="M280.161 1.45703H269.644V12.3843H277.852C281.494 12.7434 284.059 13.9234 284.059 18.1301C284.059 22 280.93 23.1406 279.288 23.4655H269.49V34.2389H279.288C281.494 34.4612 285.086 36.1571 285.086 41.3698C285.086 46.5826 280.754 47.6799 278.878 47.6799L269.49 48.0904V58.5559H283.085C295 56.5 297.193 51.5117 297.193 41.9854C297.193 34.2389 291.926 29.5191 288.882 28.0314C291.379 27.467 296.767 24.9386 295.602 13.9234C294.5 3.5 285.051 1.47413 280.161 1.45703Z" fill="#0d2b5e"/>
-        <path d="M304.734 58.8125L322.536 6.12553L327.769 23.8759L317.303 58.8125H304.734Z" fill="#0d2b5e"/>
-        <path d="M323.203 49.1164L326.281 38.7535H334.9L324.178 1.40576H336.028L354.292 58.8125H340.697L337.824 49.1164H323.203Z" fill="#0d2b5e"/>
-        <circle cx="216.903" cy="30.5966" r="30.1141" fill="#0d2b5e"/>
-        <path d="M190.074 19.8229C190.638 20.165 192.639 20.8592 196.128 20.9003C199.616 20.9413 203.635 17.5315 205.208 15.8214C206.046 15.0519 208.214 14.0669 210.184 16.2831C211.944 18.2629 212.47 22.1096 212.538 24.3341C212.553 24.815 212.528 25.3165 212.26 25.7158C212.026 26.064 211.641 26.3922 211.057 26.4409C209.317 26.4871 206.833 27.0262 204.699 28.4551C200.244 31.4382 193.951 35.909 192.958 30.6404C192.868 30.165 192.923 29.4408 192.53 29.1587C192.035 28.8031 190.876 28.6197 188.484 29.2112L187.868 29.4164M190.074 19.8229C188.48 23.3934 187.851 27.5524 187.868 29.4164M190.074 19.8229C191.87 15.8008 195.717 7.46948 206.183 3.81679M187.868 29.4164C187.714 32.8194 188.946 40.6821 192.485 46.0895C194.615 49.3427 199.165 55.5186 206.593 57.8169C214.022 60.1152 216.854 59.6638 216.854 59.6638M216.854 59.6638C217.347 58.8223 218.742 56.514 223.01 55.529C224.481 55.1699 227.894 54.8621 229.782 56.5037M216.854 59.6638C222.548 59.6638 228.38 57.7179 229.782 56.5037M229.782 56.5037C233.031 55.1357 238.708 49.506 242.146 42.6009L242.812 41.4723M242.812 41.4723C246.219 31.3351 242.488 21.6185 240.196 18.0274M240.196 18.0274C239.17 15.8727 237.795 13.8275 235.835 11.8454M206.183 3.81679C208.286 6.07407 214.683 9.08035 222.522 3.66288M206.183 3.81679C212.038 1.77324 217.856 2.31066 222.522 3.66288M230.859 7.51052C229.157 6.29764 226.196 4.72766 222.522 3.66288M230.859 7.51052C230.254 7.81333 229.578 7.93998 228.906 8.02025C227.545 8.18277 225.609 8.76248 224.344 10.2808C223.126 11.7424 222.435 13.539 222.104 14.795C221.917 15.5015 221.762 16.2745 221.163 16.6935C220.65 17.0526 218.188 17.617 218.342 19.8742C218.376 20.4215 218.588 21.5877 219.162 21.875C219.583 22.0853 220.963 21.8321 222.109 21.5538C222.847 21.3746 223.601 21.2594 224.36 21.2594H226.806C227.08 21.2594 227.658 21.0952 227.781 20.4386C227.886 19.8768 228.475 19.0999 228.878 18.6408C228.999 18.5032 229.138 18.3848 229.29 18.2817C229.79 17.9408 230.503 17.4854 231.233 17.0792C232.195 16.5438 232.787 15.2271 232.297 14.2412C231.924 13.4896 232.383 12.4784 233.211 12.3378C234.167 12.1753 235.23 11.9841 235.835 11.8454M230.859 7.51052C232.117 8.442 234.043 10.0317 235.835 11.8454" stroke="#0d2b5e" stroke-width="0.8"/>
-      </svg>
+      <a href="/"><img src="https://www.zglobalcorp.com/wp-content/uploads/2024/12/z-global-logo.svg" alt="ZGlobal" class="logo-img"></a>
     </div>
 
     <div class="nav-links">
@@ -780,21 +769,7 @@ footer{background:#07122a;padding:60px 0 28px}
     <div class="footer-grid">
       <div>
         <div class="footer-logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="400" height="61" viewBox="0 0 400 61" fill="none">
-            <path d="M1.59036 12.4355V1.55957H32.5766L24.1118 12.4355H1.59036Z" fill="white"/>
-            <path d="M42.3753 1.55957H36.1678L0 47.7825V58.8124H6.72053L42.3753 12.4355V1.55957Z" fill="white"/>
-            <path d="M10.363 58.8124L18.366 47.7825H42.837V58.8124H10.363Z" fill="white"/>
-            <path d="M113.531 11.6661V0.12323C121.534 -0.533433 127.433 3.37234 129.383 5.40731C134.513 9.63458 135.283 16.5398 135.026 19.464L122.97 20.2335C123.011 12.5588 116.694 11.3241 113.531 11.6661Z" fill="white"/>
-            <path d="M135.026 27.2106H113.531L113.582 37.1631H123.945V46.2948C122.755 47.6082 116.54 48.3469 113.582 48.5521V60.1976C122.816 60.0745 131.726 57.7864 135.026 56.6578V27.2106Z" fill="white"/>
-            <path d="M100.808 18.5406C102.942 12.8769 108.161 11.5977 110.504 11.6661V0.12323C106.113 -0.533441 101.116 1.59389 99.1662 2.73963C94.7338 4.46337 91.4025 9.40886 90.2908 11.6661C87.5 15.6471 86.3919 24.0299 86.1866 27.7236C85.2017 34.3313 87.6231 42.8576 88.9569 46.2948C90.5576 50.9736 94.7882 54.8793 96.7035 56.2474C100.726 59.5307 107.682 60.2489 110.658 60.1976V48.5521C108.113 48.5669 105.425 47.0535 104.399 46.2948C101.28 44.489 99.9528 39.4546 99.6792 37.1631C99.1867 34.7827 99.132 29.5363 99.1662 27.2106C99.2483 23.2706 100.295 19.7889 100.808 18.5406Z" fill="white"/>
-            <path d="M160.112 1.45703H148.312V59.0176H160.112V1.45703Z" fill="white"/>
-            <path d="M182.993 59.0176H163.087V48.0904H182.993V59.0176Z" fill="white"/>
-            <path d="M377.12 1.30322H365.32V58.8638H377.12V1.30322Z" fill="white"/>
-            <path d="M400 58.8638H380.095V47.9365H400V58.8638Z" fill="white"/>
-            <path d="M266.719 1.45703H254.715V58.5559H266.719V1.45703Z" fill="white"/>
-            <path d="M280.161 1.45703H269.644V12.3843H277.852C281.494 12.7434 284.059 13.9234 284.059 18.1301C284.059 22 280.93 23.1406 279.288 23.4655H269.49V34.2389H279.288C281.494 34.4612 285.086 36.1571 285.086 41.3698C285.086 46.5826 280.754 47.6799 278.878 47.6799L269.49 48.0904V58.5559H283.085C295 56.5 297.193 51.5117 297.193 41.9854C297.193 34.2389 291.926 29.5191 288.882 28.0314C291.379 27.467 296.767 24.9386 295.602 13.9234C294.5 3.5 285.051 1.47413 280.161 1.45703Z" fill="white"/>
-            <circle cx="216.903" cy="30.5966" r="30.1141" fill="white"/>
-          </svg>
+          <img src="https://www.zglobalcorp.com/wp-content/uploads/2024/12/z-global-logo.svg" alt="ZGlobal" class="footer-logo-img">
         </div>
         <p class="footer-desc">B2B wholesale platform for beauty, outdoor, home &amp; electronics brands. Italy-first, EU-ready.</p>
       </div>
