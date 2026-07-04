@@ -407,7 +407,7 @@ footer{background:#07122a;padding:60px 0 28px}
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         <span>Cart</span>
       </button>
-      <button class="btn-login">Sign In</button>
+      <a href="/login" style="text-decoration:none"><button class="btn-login">Sign In</button></a>
     </div>
 
     <!-- HAMBURGER (mobile only) -->
@@ -454,8 +454,8 @@ footer{background:#07122a;padding:60px 0 28px}
       <a href="#" class="mob-link">Support</a>
     </div>
     <div class="mob-ctas">
-      <a href="#" class="mob-cta-primary">Sign In</a>
-      <a href="#" class="mob-cta-ghost">Request Access</a>
+      <a href="/login" class="mob-cta-primary">Sign In</a>
+      <a href="/signup" class="mob-cta-ghost">Request Access</a>
     </div>
   </div>
 
@@ -464,7 +464,7 @@ footer{background:#07122a;padding:60px 0 28px}
     <div class="cat-nav-inner">
       <span class="cat-label">Categories</span>
       <div class="cat-links">
-        <div class="cat-item"><div class="cat-link">All Products</div></div>
+        <div class="cat-item"><a href="/catalog" class="cat-link" style="text-decoration:none">All Products</a></div>
         <div class="cat-item">
           <div class="cat-link">Beauty &amp; Cosmetics <span class="ch">▾</span></div>
           <div class="dropdown">
@@ -528,8 +528,8 @@ footer{background:#07122a;padding:60px 0 28px}
       </h1>
       <p class="hero-sub">Beauty, outdoor, home and electronics — all your wholesale brands in one place. Live inventory from Italian warehouses. No surprises.</p>
       <div class="hero-ctas">
-        <a href="#" class="cta-primary">Request Access</a>
-        <a href="#" class="cta-ghost">Browse catalog →</a>
+        <a href="/signup" class="cta-primary">Request Access</a>
+        <a href="/catalog" class="cta-ghost">Browse catalog →</a>
       </div>
       <div class="hero-stats">
         <div><div class="stat-num">12+</div><div class="stat-lbl">Brands</div></div>
@@ -542,21 +542,21 @@ footer{background:#07122a;padding:60px 0 28px}
     <!-- RIGHT: BRAND PILLS + CTA -->
     <div class="hero-right">
       <div class="brand-strip">
-        <a href="#" class="brand-pill">
+        <a href="/catalog" class="brand-pill">
           <div class="brand-pill-left">
             <div class="brand-pill-name">OutdoorMaster</div>
             <div class="brand-pill-cat">Outdoor · Skiing gear</div>
           </div>
           <div class="brand-pill-dot" style="background:#4ecf9a"></div>
         </a>
-        <a href="#" class="brand-pill">
+        <a href="/catalog" class="brand-pill">
           <div class="brand-pill-left">
             <div class="brand-pill-name">Vakume Home</div>
             <div class="brand-pill-cat">Home · Vacuum machines</div>
           </div>
           <div class="brand-pill-dot" style="background:#c49a3a"></div>
         </a>
-        <a href="#" class="brand-pill">
+        <a href="/catalog" class="brand-pill">
           <div class="brand-pill-left">
             <div class="brand-pill-name">RedKey</div>
             <div class="brand-pill-cat">Home · Vacuum machines</div>
@@ -576,7 +576,7 @@ footer{background:#07122a;padding:60px 0 28px}
           <strong>Approved buyers only</strong>
           Apply for wholesale access to get started.
         </div>
-        <a href="#">Apply now →</a>
+        <a href="/signup">Apply now →</a>
       </div>
     </div>
   </div>
@@ -714,7 +714,7 @@ footer{background:#07122a;padding:60px 0 28px}
         <td class="sku-count">49</td>
         <td>NET 30 / 60</td>
         <td><span class="status-badge sb-live">Live</span></td>
-        <td><a href="#" class="browse-btn">Browse →</a></td>
+        <td><a href="/catalog" class="browse-btn">Browse →</a></td>
       </tr>
       <tr>
         <td><div class="brand-name-cell"><div class="brand-initial" style="background:#b45309">VH</div><div><div class="brand-fullname">Vakume Home</div><div class="brand-website">vakumehome.com</div></div></div></td>
@@ -722,7 +722,7 @@ footer{background:#07122a;padding:60px 0 28px}
         <td class="sku-count">26</td>
         <td>NET 30</td>
         <td><span class="status-badge sb-live">Live</span></td>
-        <td><a href="#" class="browse-btn">Browse →</a></td>
+        <td><a href="/catalog" class="browse-btn">Browse →</a></td>
       </tr>
       <tr>
         <td><div class="brand-name-cell"><div class="brand-initial" style="background:#c8483a">RK</div><div><div class="brand-fullname">RedKey</div><div class="brand-website">redkey.com</div></div></div></td>
@@ -730,7 +730,7 @@ footer{background:#07122a;padding:60px 0 28px}
         <td class="sku-count">24</td>
         <td>NET 30</td>
         <td><span class="status-badge sb-live">Live</span></td>
-        <td><a href="#" class="browse-btn">Browse →</a></td>
+        <td><a href="/catalog" class="browse-btn">Browse →</a></td>
       </tr>
       <tr>
         <td><div class="brand-name-cell"><div class="brand-initial" style="background:#e2e8f0;color:#94a3b8">E</div><div><div class="brand-fullname" style="color:var(--muted)">Electronics Brand</div><div class="brand-website">—</div></div></div></td>
@@ -803,11 +803,11 @@ footer{background:#07122a;padding:60px 0 28px}
         <a href="#">Browse Brands</a>
         <a href="#">Product Catalog</a>
         <a href="#">Pricing Tiers</a>
-        <a href="#">Request Access</a>
+        <a href="/signup">Request Access</a>
       </div>
       <div class="footer-col">
         <div class="fc-title">Account</div>
-        <a href="#">Sign In</a>
+        <a href="/login">Sign In</a>
         <a href="#">My Orders</a>
         <a href="#">Invoices</a>
         <a href="#">Credit Limit</a>
