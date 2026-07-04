@@ -90,7 +90,7 @@ export default function CatalogPage() {
             <div className="text-xs text-slate-400 mb-4">{filtered.length} products</div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filtered.map((p) => (
-                <div key={p.id} className="bg-white border border-slate-200 rounded-md overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group">
+                <a key={p.id} href={`/product/${p.id}`} className="bg-white border border-slate-200 rounded-md overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group block">
                   <div className="aspect-square bg-slate-50 overflow-hidden flex items-center justify-center">
                     {p.image_url ? (
                       <img src={p.image_url} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
@@ -105,12 +105,12 @@ export default function CatalogPage() {
                       <span className="text-[11px] text-slate-400">
                         {p.stock > 0 ? <span className="text-green-600">In stock</span> : <span className="text-slate-400">Backorder</span>}
                       </span>
-                      <a href="/login" className="text-[10px] uppercase tracking-wider text-[#0d2b5e] border-b border-slate-200 hover:border-[#0d2b5e]">
-                        Login for pricing
-                      </a>
+                      <span className="text-[10px] uppercase tracking-wider text-[#0d2b5e] border-b border-slate-200">
+                        View details
+                      </span>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </>
