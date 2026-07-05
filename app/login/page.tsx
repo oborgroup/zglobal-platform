@@ -40,26 +40,20 @@ export default function LoginPage() {
           }}
         />
         <div className="relative z-10">
-          <div className="text-white text-2xl font-semibold tracking-[0.12em] uppercase">
-            ZG<span className="text-[#c49a3a]">.</span>lobal
-          </div>
+          <img src="/z-global-logo.png" alt="ZGlobal" className="h-7 w-auto" />
         </div>
         <div className="relative z-10">
-          <h1
-            className="text-white text-4xl font-light leading-tight mb-4"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
+          <h1 className="text-white text-4xl font-light leading-tight mb-4" style={{ fontFamily: "Georgia, serif" }}>
             Every brand.
             <br />
             <span className="italic text-[#c49a3a]">One platform.</span>
           </h1>
           <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-            Beauty, outdoor, home and electronics — all your wholesale brands in
-            one place. Live inventory from Italian warehouses.
+            Outdoor gear and vacuum machines — all your wholesale brands in one place. Live inventory from Italy-based warehouses.
           </p>
         </div>
         <div className="relative z-10 flex gap-6 text-white/30 text-xs uppercase tracking-wider">
-          <span>12+ Brands</span>
+          <span>3 Brands</span>
           <span>Italy &amp; EU</span>
           <span>NET 30 / 60</span>
         </div>
@@ -67,14 +61,14 @@ export default function LoginPage() {
 
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-sm">
-          <div className="lg:hidden text-[#0d2b5e] text-2xl font-semibold tracking-[0.12em] uppercase mb-10 text-center">
-            ZG<span className="text-[#c49a3a]">.</span>lobal
+          <div className="lg:hidden mb-10 flex justify-center">
+            <div className="bg-[#0d2b5e] rounded-md px-5 py-3 inline-flex">
+              <img src="/z-global-logo.png" alt="ZGlobal" className="h-6 w-auto" />
+            </div>
           </div>
 
           <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-1">Sign in</h2>
-          <p className="text-sm text-slate-500 mb-8">
-            Welcome back. Access your wholesale account.
-          </p>
+          <p className="text-sm text-slate-500 mb-8">Welcome back. Access your wholesale account.</p>
 
           {error && (
             <div className="mb-5 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
@@ -84,47 +78,23 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors"
-                placeholder="you@company.com"
-              />
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Email</label>
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder="you@company.com" />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors"
-                placeholder="••••••••"
-              />
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Password</label>
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder="••••••••" />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60"
-            >
+            <button type="submit" disabled={loading} className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60">
               {loading ? "Signing in…" : "Sign in"}
             </button>
           </form>
 
           <p className="text-center text-sm text-slate-500 mt-8">
             No account?{" "}
-            <Link href="/signup" className="text-[#0d2b5e] font-medium hover:underline">
-              Request access
-            </Link>
+            <Link href="/signup" className="text-[#0d2b5e] font-medium hover:underline">Request access</Link>
           </p>
         </div>
       </div>
