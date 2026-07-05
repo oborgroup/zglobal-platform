@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { addToCart } from "@/lib/cart";
 
 type Product = {
   id: string; name: string; sku: string | null; category: string | null;
@@ -31,6 +32,7 @@ export default function ProductDetailPage() {
   const [opt1, setOpt1] = useState<string>("");
   const [opt2, setOpt2] = useState<string>("");
   const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -60,6 +62,22 @@ export default function ProductDetailPage() {
 
   const displayPrice = selectedVariant?.retail_price ?? product?.retail_price ?? null;
   const moq = product?.moq && product.moq > 1 ? product.moq : 1;
+
+  function handleAdd() {
+    if (!product) return;
+    const variantLabel = [opt1, opt2].filter(Boolean).join(" / ") || null;
+    addToCart({
+      productId: product.id,
+      name: product.name,
+      image: product.image_url,
+      brandName: brand?.name || "",
+      variant: variantLabel,
+      price: displayPrice || 0,
+      qty,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
@@ -145,9 +163,9 @@ export default function ProductDetailPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <button className="flex-1 bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#163d80] transition-colors flex items-center justify-center gap-2">
+                <button onClick={handleAdd} className="flex-1 bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#163d80] transition-colors flex items-center justify-center gap-2">
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-                  Add to Cart
+                  {added ? "Added ✓" : "Add to Cart"}
                 </button>
                 <button className="flex-1 border border-[#0d2b5e] text-[#0d2b5e] text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#0d2b5e] hover:text-white transition-colors">
                   Request a Quote
