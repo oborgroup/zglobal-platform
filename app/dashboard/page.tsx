@@ -53,7 +53,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 max-w-6xl w-full mx-auto px-5 md:px-14 py-10">
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-5 md:px-14 py-10">
         <div className="bg-gradient-to-r from-[#0d2b5e] to-[#163d80] rounded-xl p-8 mb-8 text-white flex items-center gap-5">
           <div className="w-16 h-16 rounded-xl bg-[#c49a3a] text-[#0d2b5e] flex items-center justify-center text-2xl font-bold flex-shrink-0">{initials}</div>
           <div>
