@@ -66,8 +66,8 @@ export default function SignupPage() {
   const labelClass = "block text-xs uppercase tracking-wider text-slate-500 mb-2";
 
   return (
-    <div className="min-h-screen flex">
-      <div className="hidden lg:flex lg:w-2/5 bg-[#0d2b5e] flex-col justify-between p-12 relative overflow-hidden sticky top-0 h-screen">
+    <div className="min-h-screen flex items-stretch">
+      <div className="hidden lg:flex lg:w-2/5 bg-[#0d2b5e] flex-col justify-between p-12 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="relative z-10">
           <img src="/z-global-logo.png" alt="ZGlobal" className="h-7 w-auto" />
