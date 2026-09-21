@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase";
 
 export default function ResetPasswordPage() {
@@ -10,6 +11,7 @@ export default function ResetPasswordPage() {
 
   const [checking, setChecking] = useState(true);
   const [hasSession, setHasSession] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -18,15 +20,37 @@ export default function ResetPasswordPage() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    async function check() {
+    let mounted = true;
+
+    function applyUser(user: User | null) {
+      if (!mounted) return;
+      setHasSession(!!user);
+      setEmail(user?.email || "");
+      setIsAdmin(user?.app_metadata?.is_admin === true);
+    }
+
+    // The recovery session can arrive via cookies (token_hash flow through
+    // /auth/confirm) or asynchronously from the URL (implicit flow), so listen
+    // for auth changes in addition to the initial check.
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        applyUser(session.user);
+        setChecking(false);
+      }
+    });
+
+    (async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      setHasSession(!!user);
-      setEmail(user?.email || "");
-      setChecking(false);
-    }
-    check();
+      applyUser(user);
+      if (mounted) setChecking(false);
+    })();
+
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -50,15 +74,20 @@ export default function ResetPasswordPage() {
     setDone(true);
   }
 
+  const continueHref = isAdmin ? "/admin" : "/dashboard";
+  const signInHref = isAdmin ? "/admin/login" : "/login";
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6">
       <div className="w-full max-w-sm">
         <div className="flex items-center justify-center gap-2 mb-8">
           <div className="bg-[#0d2b5e] rounded-md px-4 py-2.5 inline-flex items-center gap-2">
             <img src="/z-global-logo.png" alt="ZGlobal" className="h-6 w-auto" />
-            <span className="text-[9px] uppercase tracking-[0.18em] font-semibold text-[#0d2b5e] bg-[#c49a3a] rounded-sm px-2 py-0.5">
-              Admin
-            </span>
+            {isAdmin && (
+              <span className="text-[9px] uppercase tracking-[0.18em] font-semibold text-[#0d2b5e] bg-[#c49a3a] rounded-sm px-2 py-0.5">
+                Admin
+              </span>
+            )}
           </div>
         </div>
 
@@ -76,12 +105,12 @@ export default function ResetPasswordPage() {
               </p>
               <button
                 onClick={() => {
-                  router.push("/admin");
+                  router.push(continueHref);
                   router.refresh();
                 }}
                 className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors"
               >
-                Go to admin console
+                {isAdmin ? "Go to admin console" : "Go to your dashboard"}
               </button>
             </div>
           ) : !hasSession ? (
@@ -90,8 +119,8 @@ export default function ResetPasswordPage() {
               <p className="text-sm text-slate-500 mb-6">
                 This password link is no longer valid. Request a new one.
               </p>
-              <a href="/admin/login" className="text-[#0d2b5e] font-medium hover:underline text-sm">
-                Back to admin sign in
+              <a href="/forgot-password" className="text-[#0d2b5e] font-medium hover:underline text-sm">
+                Request a new link
               </a>
             </div>
           ) : (
@@ -139,6 +168,10 @@ export default function ResetPasswordPage() {
                   {saving ? "Saving…" : "Set password"}
                 </button>
               </form>
+
+              <p className="text-center text-sm text-slate-400 mt-6">
+                <a href={signInHref} className="hover:underline">Back to sign in</a>
+              </p>
             </>
           )}
         </div>

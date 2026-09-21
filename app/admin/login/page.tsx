@@ -128,6 +128,12 @@ function AdminLoginForm() {
               />
             </div>
 
+            <div className="text-right -mt-2">
+              <a href="/forgot-password?admin=1" className="text-xs text-[#0d2b5e] hover:underline">
+                Forgot password?
+              </a>
+            </div>
+
             <button
               type="submit"
               disabled={loading}

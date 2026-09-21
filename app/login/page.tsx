@@ -87,6 +87,10 @@ export default function LoginPage() {
               <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder="••••••••" />
             </div>
 
+            <div className="text-right -mt-2">
+              <Link href="/forgot-password" className="text-xs text-[#0d2b5e] hover:underline">Forgot password?</Link>
+            </div>
+
             <button type="submit" disabled={loading} className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60">
               {loading ? "Signing in…" : "Sign in"}
             </button>

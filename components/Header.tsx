@@ -9,6 +9,7 @@ export default function Header() {
   const router = useRouter();
   const supabase = createClient();
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -16,6 +17,7 @@ export default function Header() {
     async function check() {
       const { data: { user } } = await supabase.auth.getUser();
       setLoggedIn(!!user);
+      setIsAdmin(user?.app_metadata?.is_admin === true);
     }
     check();
     setCount(cartCount());
@@ -64,7 +66,7 @@ export default function Header() {
             </a>
             {loggedIn ? (
               <>
-                <a href="/dashboard" className="text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white px-3 py-2">Dashboard</a>
+                <a href={isAdmin ? "/admin" : "/dashboard"} className="text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white px-3 py-2">{isAdmin ? "Admin" : "Dashboard"}</a>
                 <button onClick={handleLogout} className="bg-[#c49a3a] text-[#0d2b5e] text-[11px] uppercase tracking-wider font-semibold px-5 py-2 rounded-sm hover:bg-[#d4a94a] transition-colors">Log out</button>
               </>
             ) : (
@@ -92,7 +94,7 @@ export default function Header() {
           <a href="/support" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Support</a>
           {loggedIn ? (
             <>
-              <a href="/dashboard" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Dashboard</a>
+              <a href={isAdmin ? "/admin" : "/dashboard"} className="block text-white/85 text-sm py-2.5 border-b border-white/10">{isAdmin ? "Admin" : "Dashboard"}</a>
               <button onClick={handleLogout} className="w-full mt-3 bg-[#c49a3a] text-[#0d2b5e] text-xs uppercase tracking-wider font-semibold py-3 rounded-sm">Log out</button>
             </>
           ) : (
