@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { sortProducts, SORT_OPTIONS, type SortKey } from "@/lib/categories";
 
 type Product = {
   id: string; name: string; sku: string | null; category: string | null;
-  image_url: string | null; stock: number; brand_id: string;
+  image_url: string | null; stock: number; brand_id: string; wholesale_price: number | null;
 };
 type Brand = { id: string; name: string; slug: string };
 
@@ -35,11 +36,13 @@ export default function CatalogPage() {
   const [activeBrand, setActiveBrand] = useState<string>("all");
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [sort, setSort] = useState<SortKey>("price-desc");
+  const [q, setQ] = useState("");
 
   useEffect(() => {
     async function load() {
       const { data: brandData } = await supabase.from("brands").select("id, name, slug").eq("visible", true).order("sort_order");
-      const { data: productData } = await supabase.from("products").select("id, name, sku, category, image_url, stock, brand_id").eq("visible", true).order("name");
+      const { data: productData } = await supabase.from("products").select("id, name, sku, category, image_url, stock, brand_id, wholesale_price").eq("visible", true);
       setBrands(brandData || []);
       setProducts(productData || []);
       setLoading(false);
@@ -48,7 +51,12 @@ export default function CatalogPage() {
   }, []);
 
   const brandName = (id: string) => brands.find((b) => b.id === id)?.name || "";
-  const filtered = activeBrand === "all" ? products : products.filter((p) => p.brand_id === activeBrand);
+  const byBrand = activeBrand === "all" ? products : products.filter((p) => p.brand_id === activeBrand);
+  const query = q.trim().toLowerCase();
+  const searched = query
+    ? byBrand.filter((p) => p.name.toLowerCase().includes(query) || (p.sku || "").toLowerCase().includes(query))
+    : byBrand;
+  const filtered = sortProducts(searched, sort);
   const visible = filtered.slice(0, visibleCount);
 
   function selectBrand(id: string) {
@@ -73,6 +81,21 @@ export default function CatalogPage() {
             {brands.map((b) => (
               <button key={b.id} onClick={() => selectBrand(b.id)} className={`text-[11px] uppercase tracking-wider px-4 py-2 rounded-sm border transition-colors ${activeBrand === b.id ? "bg-[#0d2b5e] text-white border-[#0d2b5e]" : "bg-white text-slate-500 border-slate-200 hover:border-[#0d2b5e]"}`}>{b.name}</button>
             ))}
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 mt-4">
+            <input
+              value={q}
+              onChange={(e) => { setQ(e.target.value); setVisibleCount(PAGE_SIZE); }}
+              placeholder="Search products or SKU…"
+              className="w-full sm:max-w-xs border border-slate-200 rounded-md px-4 py-2 text-sm bg-white focus:outline-none focus:border-[#0d2b5e]"
+            />
+            <select
+              value={sort}
+              onChange={(e) => { setSort(e.target.value as SortKey); setVisibleCount(PAGE_SIZE); }}
+              className="border border-slate-200 rounded-md px-3 py-2 text-sm bg-white text-slate-600 focus:outline-none focus:border-[#0d2b5e] sm:ml-auto"
+            >
+              {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
           </div>
         </div>
 
