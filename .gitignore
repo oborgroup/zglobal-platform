@@ -42,6 +42,7 @@ supabase/.branches
 
 # local source data / imports (price lists, scraped sites) — not app code
 Sheglam/
+sheglam_cbm_columns.sql
 
 # typescript
 *.tsbuildinfo

@@ -1,7 +1,28 @@
 export type Product = {
   id: string; name: string; category: string | null;
   image_url: string | null; stock: number; brand_id: string; created_at?: string;
+  sku?: string | null; wholesale_price?: number | null;
 };
+
+export type SortKey = "price-desc" | "price-asc" | "name";
+
+export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: "price-desc", label: "Price: High to Low" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "name", label: "Name: A to Z" },
+];
+
+// Default: most expensive first (nulls last).
+export function sortProducts<T extends { name: string; wholesale_price?: number | null }>(
+  list: T[],
+  sort: SortKey
+): T[] {
+  const arr = [...list];
+  if (sort === "price-asc") arr.sort((a, b) => (a.wholesale_price ?? Infinity) - (b.wholesale_price ?? Infinity));
+  else if (sort === "name") arr.sort((a, b) => a.name.localeCompare(b.name));
+  else arr.sort((a, b) => (b.wholesale_price ?? -Infinity) - (a.wholesale_price ?? -Infinity));
+  return arr;
+}
 
 export const CATEGORIES: Record<string, { title: string }> = {
   "beauty": { title: "Beauty & Cosmetics" },
