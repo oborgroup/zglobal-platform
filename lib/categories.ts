@@ -4,6 +4,7 @@ export type Product = {
 };
 
 export const CATEGORIES: Record<string, { title: string }> = {
+  "beauty": { title: "Beauty & Cosmetics" },
   "outdoor": { title: "Outdoor & Sports" },
   "home": { title: "Home & Living" },
   "electronics": { title: "Electronics" },
@@ -12,6 +13,13 @@ export const CATEGORIES: Record<string, { title: string }> = {
 
 export function deriveCategory(cat: string | null, brandName: string): { parent: string | null; sub: string | null } {
   const c = (cat || "").toLowerCase();
+
+  // SHEGLAM is a beauty/cosmetics brand — group all its items under "beauty",
+  // using each product's category (Blush, Mascara, Lipstick…) as the sub.
+  if (brandName === "SHEGLAM") {
+    const sub = (cat || "").trim();
+    return { parent: "beauty", sub: sub || "Cosmetics" };
+  }
 
   const rules: [RegExp, string, string][] = [
     [/goggle|swim goggles|snorkeling mask|diving.*mask/, "outdoor", "Goggles & Masks"],
