@@ -52,6 +52,7 @@ export default function Header() {
 
           <nav className="hidden lg:flex items-stretch flex-1">
             <a href="/catalog" className="flex items-center px-4 text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white border-b-2 border-transparent hover:border-[#c49a3a] transition-colors">All Products</a>
+            <a href="/category/beauty" className="flex items-center px-4 text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white border-b-2 border-transparent hover:border-[#c49a3a] transition-colors">Beauty</a>
             <a href="/category/outdoor" className="flex items-center px-4 text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white border-b-2 border-transparent hover:border-[#c49a3a] transition-colors">Outdoor</a>
             <a href="/category/home" className="flex items-center px-4 text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white border-b-2 border-transparent hover:border-[#c49a3a] transition-colors">Home</a>
             <a href="/inventory" className="flex items-center px-4 text-[11.5px] uppercase tracking-wider text-white/85 hover:text-white border-b-2 border-transparent hover:border-[#c49a3a] transition-colors">Inventory</a>
@@ -86,6 +87,7 @@ export default function Header() {
       {menuOpen && (
         <div className="lg:hidden bg-[#0d2b5e] border-b border-white/10 px-5 py-4 sticky top-[60px] z-40">
           <a href="/catalog" className="block text-white/85 text-sm py-2.5 border-b border-white/10">All Products</a>
+          <a href="/category/beauty" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Beauty</a>
           <a href="/category/outdoor" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Outdoor</a>
           <a href="/category/home" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Home</a>
           <a href="/inventory" className="block text-white/85 text-sm py-2.5 border-b border-white/10">Inventory</a>

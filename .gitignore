@@ -40,6 +40,9 @@ yarn-error.log*
 supabase/.temp
 supabase/.branches
 
+# local source data / imports (price lists, scraped sites) — not app code
+Sheglam/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
