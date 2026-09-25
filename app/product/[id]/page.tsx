@@ -33,6 +33,8 @@ export default function ProductDetailPage() {
   const [opt2, setOpt2] = useState<string>("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [gallery, setGallery] = useState<string[]>([]);
+  const [activeImg, setActiveImg] = useState(0);
 
   useEffect(() => {
     async function load() {
@@ -41,6 +43,13 @@ export default function ProductDetailPage() {
         .eq("id", id).eq("visible", true).single();
       if (!prod) { setNotFound(true); setLoading(false); return; }
       setProduct(prod);
+      // Gallery images (tolerant: the image_urls column may not exist yet)
+      let imgs: string[] = [];
+      const { data: g } = await supabase.from("products").select("image_urls").eq("id", id).single();
+      const arr = (g as { image_urls?: unknown } | null)?.image_urls;
+      if (Array.isArray(arr)) imgs = arr.filter((u): u is string => typeof u === "string");
+      if (imgs.length === 0 && prod.image_url) imgs = [prod.image_url];
+      setGallery(imgs);
       const { data: br } = await supabase.from("brands").select("id, name, slug, website").eq("id", prod.brand_id).single();
       setBrand(br);
       const { data: vars } = await supabase.from("product_variants").select("*").eq("product_id", id);
@@ -94,10 +103,25 @@ export default function ProductDetailPage() {
           </div>
         ) : product ? (
           <div className="grid md:grid-cols-2 gap-10 mt-6">
-            <div className="bg-white border border-slate-200 rounded-lg overflow-hidden aspect-square flex items-center justify-center">
-              {product.image_url ? (
-                <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
-              ) : (<div className="text-slate-300 text-sm">No image available</div>)}
+            <div>
+              <div className="bg-white border border-slate-200 rounded-lg overflow-hidden aspect-square flex items-center justify-center mb-3">
+                {gallery.length > 0 ? (
+                  <img src={gallery[activeImg] || gallery[0]} alt={product.name} className="w-full h-full object-contain" />
+                ) : (<div className="text-slate-300 text-sm">No image available</div>)}
+              </div>
+              {gallery.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {gallery.map((url, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveImg(i)}
+                      className={`w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border-2 transition-colors ${i === activeImg ? "border-[#0d2b5e]" : "border-slate-200 hover:border-slate-400"}`}
+                    >
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div>
