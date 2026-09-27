@@ -1,28 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { addToCart } from "@/lib/cart";
+import { useBuyer } from "@/lib/useBuyer";
 
 type Product = {
   id: string; name: string; sku: string | null; category: string | null;
   description: string | null; image_url: string | null; stock: number;
-  brand_id: string; retail_price: number | null; moq: number | null;
+  brand_id: string; retail_price: number | null; wholesale_price: number | null; moq: number | null;
 };
 type Brand = { id: string; name: string; slug: string; website: string | null };
 type Variant = {
   id: string; option1_name: string | null; option1_value: string | null;
   option2_name: string | null; option2_value: string | null;
-  sku: string | null; retail_price: number | null; stock: number;
+  sku: string | null; retail_price: number | null; wholesale_price: number | null; stock: number;
 };
 
 export default function ProductDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const supabase = createClient();
+  const router = useRouter();
+  const { isApproved, state } = useBuyer();
   const [product, setProduct] = useState<Product | null>(null);
   const [brand, setBrand] = useState<Brand | null>(null);
   const [variants, setVariants] = useState<Variant[]>([]);
@@ -39,7 +42,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     async function load() {
       const { data: prod } = await supabase
-        .from("products").select("id, name, sku, category, description, image_url, stock, brand_id, retail_price, moq")
+        .from("products").select("id, name, sku, category, description, image_url, stock, brand_id, retail_price, wholesale_price, moq")
         .eq("id", id).eq("visible", true).single();
       if (!prod) { setNotFound(true); setLoading(false); return; }
       setProduct(prod);
@@ -69,7 +72,7 @@ export default function ProductDetailPage() {
     (v) => (!opt1 || v.option1_value === opt1) && (!opt2 || v.option2_value === opt2)
   );
 
-  const displayPrice = selectedVariant?.retail_price ?? product?.retail_price ?? null;
+  const wholesale = selectedVariant?.wholesale_price ?? product?.wholesale_price ?? null;
   const moq = product?.moq && product.moq > 1 ? product.moq : 1;
 
   function handleAdd() {
@@ -81,11 +84,16 @@ export default function ProductDetailPage() {
       image: product.image_url,
       brandName: brand?.name || "",
       variant: variantLabel,
-      price: displayPrice || 0,
+      price: isApproved ? wholesale ?? 0 : 0,
       qty,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  }
+
+  function handleOrder() {
+    handleAdd();
+    router.push("/cart");
   }
 
   return (
@@ -140,15 +148,22 @@ export default function ProductDetailPage() {
               </div>
 
               <div className="mb-6">
-                {displayPrice && displayPrice > 0 ? (
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-semibold text-[#0d2b5e]">€{displayPrice.toFixed(2)}</span>
-                    <span className="text-xs text-slate-400 uppercase tracking-wider">RRP incl. VAT</span>
-                  </div>
+                {isApproved ? (
+                  wholesale != null ? (
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-semibold text-[#0d2b5e]">€{wholesale.toFixed(2)}</span>
+                      <span className="text-xs text-slate-400 uppercase tracking-wider">Wholesale / unit · excl. VAT</span>
+                    </div>
+                  ) : (
+                    <span className="text-sm text-slate-500">Price on request</span>
+                  )
+                ) : state === "guest" ? (
+                  <div className="text-sm text-slate-600"><a href="/login" className="text-[#0d2b5e] font-medium hover:underline">Sign in</a> to see wholesale pricing.</div>
+                ) : state === "pending" ? (
+                  <div className="text-sm text-amber-700">Wholesale pricing unlocks once your account is approved.</div>
                 ) : (
-                  <span className="text-sm text-slate-500">Price on request</span>
+                  <div className="text-sm text-slate-500">Wholesale pricing available for approved buyers.</div>
                 )}
-                <p className="text-xs text-slate-400 mt-1">Wholesale pricing available for approved buyers.</p>
               </div>
 
               {opt1Name && opt1Values.length > 0 && (
@@ -180,8 +195,8 @@ export default function ProductDetailPage() {
                     <input type="number" value={qty} min={moq} onChange={(e) => setQty(Math.max(moq, parseInt(e.target.value) || moq))} className="w-16 text-center border-x border-slate-200 py-2.5 text-sm focus:outline-none" />
                     <button onClick={() => setQty((q) => q + 1)} className="px-4 py-2.5 text-slate-500 hover:text-[#0d2b5e] text-lg">+</button>
                   </div>
-                  {displayPrice && displayPrice > 0 && (
-                    <span className="text-sm text-slate-500">Subtotal: <span className="font-semibold text-[#0d2b5e]">€{(displayPrice * qty).toFixed(2)}</span></span>
+                  {isApproved && wholesale != null && (
+                    <span className="text-sm text-slate-500">Subtotal: <span className="font-semibold text-[#0d2b5e]">€{(wholesale * qty).toFixed(2)}</span></span>
                   )}
                 </div>
               </div>
@@ -191,8 +206,8 @@ export default function ProductDetailPage() {
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
                   {added ? "Added ✓" : "Add to Cart"}
                 </button>
-                <button className="flex-1 border border-[#0d2b5e] text-[#0d2b5e] text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#0d2b5e] hover:text-white transition-colors">
-                  Request a Quote
+                <button onClick={handleOrder} className="flex-1 border border-[#0d2b5e] text-[#0d2b5e] text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#0d2b5e] hover:text-white transition-colors">
+                  Add &amp; go to cart
                 </button>
               </div>
 
