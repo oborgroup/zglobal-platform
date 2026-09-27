@@ -49,3 +49,5 @@ sheglam_cbm_columns.sql
 next-env.d.ts
 sheglam_image_urls.sql
 orders_schema.sql
+
+contact_messages.sql

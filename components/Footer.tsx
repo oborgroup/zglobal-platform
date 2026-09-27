@@ -22,14 +22,20 @@ export default function Footer() {
           </div>
           <div>
             <div className="text-white/90 text-[11px] uppercase tracking-wider font-semibold mb-3">Support</div>
-            <a href="#" className="block text-[12.5px] py-1 hover:text-white transition-colors">Help Center</a>
-            <a href="#" className="block text-[12.5px] py-1 hover:text-white transition-colors">Contact</a>
-            <a href="#" className="block text-[12.5px] py-1 hover:text-white transition-colors">Shipping</a>
+            <a href="/support" className="block text-[12.5px] py-1 hover:text-white transition-colors">Help Center</a>
+            <a href="/contact" className="block text-[12.5px] py-1 hover:text-white transition-colors">Contact</a>
+            <a href="/support" className="block text-[12.5px] py-1 hover:text-white transition-colors">FAQ</a>
           </div>
         </div>
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-[12px] text-white/30">
-          <span>© 2026 ZGlobal. All rights reserved.</span>
-          <span>Italy &amp; EU · B2B wholesale only</span>
+        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12px] text-white/30">
+          <span>© 2026 ZGlobal B.V. All rights reserved.</span>
+          <div className="flex gap-4 flex-wrap">
+            <a href="/legal/privacy" className="hover:text-white transition-colors">Privacy</a>
+            <a href="/legal/terms" className="hover:text-white transition-colors">Terms</a>
+            <a href="/legal/cookies" className="hover:text-white transition-colors">Cookies</a>
+            <a href="/legal/imprint" className="hover:text-white transition-colors">Legal notice</a>
+          </div>
+          <span>EU · B2B wholesale only</span>
         </div>
       </div>
     </footer>

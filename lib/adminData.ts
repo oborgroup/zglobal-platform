@@ -54,6 +54,23 @@ export type BuyerApplication = {
 
 export type LicenseFile = { name: string; url: string } | null;
 
+export type ContactMessage = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  company: string | null;
+  subject: string | null;
+  message: string | null;
+  handled: boolean | null;
+  created_at: string;
+};
+
+export async function listContactMessages(): Promise<ContactMessage[]> {
+  const admin = createAdminSupabase();
+  const { data } = await admin.from("contact_messages").select("*").order("created_at", { ascending: false });
+  return (data as ContactMessage[]) || [];
+}
+
 /** All products (including hidden), newest first, with brand names attached. */
 export async function listAdminProducts(): Promise<{
   products: AdminProduct[];
