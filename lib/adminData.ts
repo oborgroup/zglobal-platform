@@ -36,6 +36,7 @@ export type BrandOption = { id: string; name: string };
 export type BuyerApplication = {
   id: string;
   email: string | null;
+  status: "pending" | "approved" | "rejected";
   createdAt: string;
   emailConfirmedAt: string | null;
   company: string;
@@ -133,9 +134,11 @@ export async function listBuyerApplications(): Promise<BuyerApplication[]> {
       if (u.app_metadata?.is_admin === true) continue;
       const m = (u.user_metadata || {}) as Record<string, unknown>;
       const str = (k: string) => (typeof m[k] === "string" ? (m[k] as string) : "");
+      const st = u.app_metadata?.status;
       out.push({
         id: u.id,
         email: u.email ?? null,
+        status: st === "approved" || st === "rejected" ? st : "pending",
         createdAt: u.created_at,
         emailConfirmedAt: u.email_confirmed_at ?? null,
         company: str("company_name"),

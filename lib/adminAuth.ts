@@ -7,6 +7,27 @@ export function isAdminUser(user: User | null | undefined): user is User {
   return user?.app_metadata?.is_admin === true;
 }
 
+export type BuyerStatus = "pending" | "approved" | "rejected";
+
+/** A buyer's approval status (server-controlled via app_metadata.status). */
+export function getBuyerStatus(user: User | null | undefined): BuyerStatus {
+  const s = user?.app_metadata?.status;
+  return s === "approved" || s === "rejected" ? s : "pending";
+}
+
+/** Approved buyers (and admins) may see wholesale pricing and place orders. */
+export function isApprovedBuyer(user: User | null | undefined): boolean {
+  return !!user && (isAdminUser(user) || getBuyerStatus(user) === "approved");
+}
+
+/** Guard for buyer Server Actions (e.g. placing an order). Throws if not approved. */
+export async function assertApprovedBuyer(): Promise<User> {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("You must be signed in.");
+  if (!isApprovedBuyer(user)) throw new Error("Your wholesale account is awaiting approval.");
+  return user;
+}
+
 /** The currently signed-in user (or null), validated against the auth server. */
 export async function getCurrentUser(): Promise<User | null> {
   const supabase = await createServerSupabase();

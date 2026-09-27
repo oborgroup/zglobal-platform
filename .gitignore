@@ -47,3 +47,5 @@ sheglam_cbm_columns.sql
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+sheglam_image_urls.sql
+orders_schema.sql

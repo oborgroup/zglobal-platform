@@ -1,4 +1,5 @@
 import { getAdminStats } from "@/lib/adminData";
+import { getOrderStats } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +26,13 @@ function StatCard({
 }
 
 export default async function AdminOverviewPage() {
-  const stats = await getAdminStats();
+  const [stats, orderStats] = await Promise.all([getAdminStats(), getOrderStats()]);
 
   const cards = [
+    { href: "/admin/orders", title: "Orders", desc: "Review orders, approve & update status." },
+    { href: "/admin/applications", title: "Applications", desc: "Approve or reject buyer signups." },
     { href: "/admin/products", title: "Products", desc: "Add, edit, hide or remove catalog items." },
     { href: "/admin/brands", title: "Brands", desc: "Manage the brands products belong to." },
-    { href: "/admin/applications", title: "Applications", desc: "Review buyer signups & licenses." },
   ];
 
   return (
@@ -46,6 +48,8 @@ export default async function AdminOverviewPage() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+        <StatCard value={orderStats.pending} label="Pending orders" note="Awaiting review" accent />
+        <StatCard value={orderStats.total} label="Total orders" note="All time" />
         <StatCard value={stats.productTotal} label="Products" note="All items" />
         <StatCard value={stats.productHidden} label="Hidden" note="Products off catalog" />
         <StatCard value={stats.productOutOfStock} label="Out of stock" note="Zero / backorder" />

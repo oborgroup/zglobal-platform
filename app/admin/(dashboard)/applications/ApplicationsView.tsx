@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import type { ApplicationRow } from "./page";
+import { setBuyerStatus } from "./actions";
 
 function fmtDate(s: string | null): string {
   if (!s) return "—";
@@ -19,32 +21,75 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
+const STATUS_STYLE: Record<string, string> = {
+  pending: "text-amber-700 bg-amber-50",
+  approved: "text-green-700 bg-green-50",
+  rejected: "text-red-700 bg-red-50",
+};
+
 export default function ApplicationsView({ rows }: { rows: ApplicationRow[] }) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const [q, setQ] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "approved" | "rejected">("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const filtered = rows.filter((r) => {
+    if (statusFilter !== "all" && r.status !== statusFilter) return false;
     const hay = `${r.company} ${r.firstName} ${r.lastName} ${r.email ?? ""} ${r.vat}`.toLowerCase();
     return hay.includes(q.toLowerCase());
   });
 
-  const withLicense = rows.filter((r) => r.license).length;
+  const counts = {
+    pending: rows.filter((r) => r.status === "pending").length,
+    approved: rows.filter((r) => r.status === "approved").length,
+    rejected: rows.filter((r) => r.status === "rejected").length,
+  };
+
+  function decide(id: string, status: "approved" | "rejected" | "pending") {
+    setError(null);
+    setBusyId(id);
+    startTransition(async () => {
+      const res = await setBuyerStatus(id, status);
+      setBusyId(null);
+      if (!res.ok) setError(res.error);
+      else router.refresh();
+    });
+  }
 
   return (
     <>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-[#0d2b5e]">Buyer applications</h1>
         <p className="text-sm text-slate-500 mt-1">
-          {rows.length} buyer account{rows.length === 1 ? "" : "s"} · {withLicense} with a business license on file
+          {rows.length} account{rows.length === 1 ? "" : "s"} · {counts.pending} pending · {counts.approved} approved · {counts.rejected} rejected
         </p>
       </div>
 
-      <input
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="Search by company, name, email or VAT…"
-        className="w-full max-w-md border border-slate-200 rounded-md px-4 py-2.5 text-sm mb-5 bg-white focus:outline-none focus:border-[#0d2b5e]"
-      />
+      {error && (
+        <div className="mb-4 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>
+      )}
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-5">
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search by company, name, email or VAT…"
+          className="w-full sm:max-w-md border border-slate-200 rounded-md px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[#0d2b5e]"
+        />
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
+          className="border border-slate-200 rounded-md px-3 py-2.5 text-sm bg-white text-slate-600 focus:outline-none focus:border-[#0d2b5e] sm:ml-auto"
+        >
+          <option value="all">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
 
       {rows.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-lg p-10 text-center text-slate-400 text-sm">
@@ -55,6 +100,7 @@ export default function ApplicationsView({ rows }: { rows: ApplicationRow[] }) {
           {filtered.map((r) => {
             const name = `${r.firstName} ${r.lastName}`.trim() || "—";
             const open = openId === r.id;
+            const busy = pending && busyId === r.id;
             return (
               <div key={r.id} className="bg-white border border-slate-200 rounded-lg overflow-hidden">
                 <button
@@ -66,11 +112,10 @@ export default function ApplicationsView({ rows }: { rows: ApplicationRow[] }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-sm font-medium text-[#0d2b5e] truncate">{r.company || name}</div>
-                    <div className="text-xs text-slate-400 truncate">
-                      {name} · {r.email ?? "—"}
-                    </div>
+                    <div className="text-xs text-slate-400 truncate">{name} · {r.email ?? "—"}</div>
                   </div>
                   <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+                    <span className={`text-[10px] uppercase tracking-wider px-2 py-1 rounded ${STATUS_STYLE[r.status]}`}>{r.status}</span>
                     {r.emailConfirmedAt ? (
                       <span className="text-[10px] uppercase tracking-wider text-green-600 bg-green-50 px-2 py-1 rounded">Verified</span>
                     ) : (
@@ -100,26 +145,44 @@ export default function ApplicationsView({ rows }: { rows: ApplicationRow[] }) {
                       <Field label="Postcode" value={r.postcode} />
                       <Field label="Country" value={r.country} />
                       <Field label="Applied" value={fmtDate(r.createdAt)} />
-                      <Field label="Email verified" value={fmtDate(r.emailConfirmedAt)} />
                     </div>
 
-                    <div className="mt-5 pt-5 border-t border-slate-200">
-                      <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-2">Business license</div>
+                    <div className="mt-5 pt-5 border-t border-slate-200 flex flex-wrap items-center gap-3">
+                      <div className="text-[10px] uppercase tracking-wider text-slate-400 mr-1">Decision</div>
+                      <button
+                        onClick={() => decide(r.id, "approved")}
+                        disabled={busy || r.status === "approved"}
+                        className="text-[11px] uppercase tracking-wider bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-40"
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => decide(r.id, "rejected")}
+                        disabled={busy || r.status === "rejected"}
+                        className="text-[11px] uppercase tracking-wider border border-red-300 text-red-600 px-4 py-2 rounded hover:bg-red-50 disabled:opacity-40"
+                      >
+                        Reject
+                      </button>
+                      {r.status !== "pending" && (
+                        <button
+                          onClick={() => decide(r.id, "pending")}
+                          disabled={busy}
+                          className="text-[11px] uppercase tracking-wider text-slate-500 px-3 py-2 hover:text-slate-800 disabled:opacity-40"
+                        >
+                          Reset to pending
+                        </button>
+                      )}
                       {r.license ? (
                         <a
                           href={r.license.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-4 py-2.5 rounded-md hover:bg-[#163d80] transition-colors"
+                          className="ml-auto inline-flex items-center gap-2 text-[11px] uppercase tracking-wider text-[#0d2b5e] border border-slate-200 px-4 py-2 rounded hover:border-[#0d2b5e]"
                         >
-                          <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
-                          </svg>
-                          View license ({r.license.name})
+                          View license
                         </a>
                       ) : (
-                        <p className="text-sm text-slate-400">No business license file was uploaded.</p>
+                        <span className="ml-auto text-[11px] text-slate-400">No license uploaded</span>
                       )}
                     </div>
                   </div>
