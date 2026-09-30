@@ -1,0 +1,46 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signOut": "Log out",
+    "dashboard": "Dashboard",
+    "requestAccess": "Request Access",
+    "support": "Support",
+    "cart": "Cart",
+    "search": "Search",
+    "loading": "Loading…",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "back": "Back",
+    "admin": "Admin"
+  },
+  "nav": {
+    "allProducts": "All Products",
+    "beauty": "Beauty",
+    "outdoor": "Outdoor",
+    "home": "Home",
+    "inventory": "Inventory",
+    "promotions": "Promotions",
+    "catalog": "Catalog",
+    "brands": "Brands"
+  },
+  "header": {
+    "tagline": "B2B Wholesale Platform",
+    "region": "Italy & EU"
+  },
+  "footer": {
+    "tagline": "B2B wholesale platform for outdoor, home & vacuum brands. Italy-first, EU-ready.",
+    "platform": "Platform",
+    "account": "Account",
+    "support": "Support",
+    "helpCenter": "Help Center",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies",
+    "legalNotice": "Legal notice",
+    "rights": "All rights reserved.",
+    "b2bOnly": "EU · B2B wholesale only"
+  }
+}

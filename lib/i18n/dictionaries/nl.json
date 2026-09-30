@@ -1,0 +1,46 @@
+{
+  "common": {
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "dashboard": "Dashboard",
+    "requestAccess": "Toegang aanvragen",
+    "support": "Klantenservice",
+    "cart": "Winkelwagen",
+    "search": "Zoeken",
+    "loading": "Laden…",
+    "submit": "Versturen",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "back": "Terug",
+    "admin": "Admin"
+  },
+  "nav": {
+    "allProducts": "Alle producten",
+    "beauty": "Beauty",
+    "outdoor": "Outdoor",
+    "home": "Wonen",
+    "inventory": "Voorraad",
+    "promotions": "Aanbiedingen",
+    "catalog": "Catalogus",
+    "brands": "Merken"
+  },
+  "header": {
+    "tagline": "B2B-groothandelsplatform",
+    "region": "Italië & EU"
+  },
+  "footer": {
+    "tagline": "B2B-groothandelsplatform voor outdoor-, woon- en stofzuigermerken. Italië-first, EU-ready.",
+    "platform": "Platform",
+    "account": "Account",
+    "support": "Klantenservice",
+    "helpCenter": "Helpcentrum",
+    "contact": "Contact",
+    "faq": "Veelgestelde vragen",
+    "privacy": "Privacy",
+    "terms": "Voorwaarden",
+    "cookies": "Cookies",
+    "legalNotice": "Juridische kennisgeving",
+    "rights": "Alle rechten voorbehouden.",
+    "b2bOnly": "EU · Alleen B2B-groothandel"
+  }
+}
