@@ -4,9 +4,9 @@ export const metadata = { title: "Cookie Policy — ZGlobal" };
 
 export default function CookiesPage() {
   return (
-    <LegalPage title="Cookie Policy">
+    <LegalPage title="Cookie Policy" updated="30 September 2026">
       <p>
-        This Cookie Policy explains how <strong>ZGlobal B.V.</strong> uses cookies and similar
+        This Cookie Policy explains how <strong>Z Global B.V.</strong> uses cookies and similar
         technologies on this website.
       </p>
 
@@ -23,12 +23,12 @@ export default function CookiesPage() {
           (authentication) and remembering your cart. These cannot be switched off.
         </li>
         <li>
-          <strong>Preferences</strong> — remember choices such as your cookie consent and, in future,
-          your language. [Confirm if used.]
+          <strong>Preferences</strong> — remember choices such as your cookie-consent selection and, in
+          future, your preferred language.
         </li>
         <li>
           <strong>Analytics / marketing</strong> — not currently used. If we add them, we will only set
-          them after you consent, and this page will be updated. [Update when applicable.]
+          them after you consent, and this page will be updated.
         </li>
       </ul>
 

@@ -4,7 +4,7 @@ export const metadata = { title: "Terms & Conditions — ZGlobal" };
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms &amp; Conditions">
+    <LegalPage title="Terms &amp; Conditions" updated="30 September 2026">
       <p>
         These General Terms &amp; Conditions govern the use of the ZGlobal wholesale platform and all
         orders placed through it. The platform is intended exclusively for <strong>business customers</strong>{" "}
@@ -13,9 +13,9 @@ export default function TermsPage() {
 
       <h2>1. Parties</h2>
       <p>
-        The seller is <strong>ZGlobal B.V.</strong>, [Registered address], KvK [KvK number], VAT
-        [VAT/BTW number] ("ZGlobal"). The buyer is the business that has been approved for a wholesale
-        account ("Buyer").
+        The seller is <strong>Z Global B.V.</strong>, Parelmoervlinder 10, 3544 DH Utrecht, The
+        Netherlands, KvK 96849568, VAT NL867793508B01 ("ZGlobal"). The buyer is the business that has
+        been approved for a wholesale account ("Buyer").
       </p>
 
       <h2>2. Accounts &amp; approval</h2>
@@ -68,8 +68,9 @@ export default function TermsPage() {
       <h2>8. Returns &amp; complaints</h2>
       <p>
         As a B2B supplier, the statutory consumer right of withdrawal does not apply. The Buyer must
-        inspect goods on receipt and report visible defects or shortages without undue delay. [Insert
-        ZGlobal&apos;s returns/complaints procedure and timeframes.]
+        inspect goods on receipt and report any visible defects, damage or shortages in writing to{" "}
+        <a href="mailto:info@zglobalcorp.com">info@zglobalcorp.com</a> within 7 days of receipt. Returns
+        require ZGlobal&apos;s prior written authorisation; unauthorised returns will not be accepted.
       </p>
 
       <h2>9. Liability</h2>
@@ -82,7 +83,7 @@ export default function TermsPage() {
       <h2>10. Governing law</h2>
       <p>
         These terms are governed by the laws of the Netherlands. Disputes shall be submitted to the
-        competent court in [Court / district], unless mandatory law provides otherwise.
+        competent court in Utrecht, the Netherlands, unless mandatory law provides otherwise.
       </p>
     </LegalPage>
   );
