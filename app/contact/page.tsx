@@ -68,12 +68,11 @@ export default function ContactPage() {
 
           <aside className="space-y-6">
             <div className="bg-white border border-slate-200 rounded-lg p-6">
-              <h3 className="font-semibold text-[#0d2b5e] mb-3">ZGlobal B.V.</h3>
+              <h3 className="font-semibold text-[#0d2b5e] mb-3">Z Global B.V.</h3>
               <div className="text-sm text-slate-600 space-y-2">
                 <div><div className="text-[10px] uppercase tracking-wider text-slate-400">Email</div><a href="mailto:info@zglobalcorp.com" className="text-[#0d2b5e] hover:underline">info@zglobalcorp.com</a></div>
                 <div><div className="text-[10px] uppercase tracking-wider text-slate-400">Support</div><a href="mailto:support@zglobalcorp.com" className="text-[#0d2b5e] hover:underline">support@zglobalcorp.com</a></div>
-                <div><div className="text-[10px] uppercase tracking-wider text-slate-400">Phone</div><span>[Phone number]</span></div>
-                <div><div className="text-[10px] uppercase tracking-wider text-slate-400">Address</div><span>[Registered address]</span></div>
+                <div><div className="text-[10px] uppercase tracking-wider text-slate-400">Address</div><span>Parelmoervlinder 10<br />3544 DH Utrecht<br />The Netherlands</span></div>
               </div>
             </div>
             <div className="bg-white border border-slate-200 rounded-lg p-6">

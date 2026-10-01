@@ -4,17 +4,18 @@ export const metadata = { title: "Privacy Policy — ZGlobal" };
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy">
+    <LegalPage title="Privacy Policy" updated="30 September 2026">
       <p>
-        This Privacy Policy explains how <strong>ZGlobal B.V.</strong> ("ZGlobal", "we", "us") collects
+        This Privacy Policy explains how <strong>Z Global B.V.</strong> ("ZGlobal", "we", "us") collects
         and processes personal data of business users of this wholesale platform, in accordance with the
         EU General Data Protection Regulation (GDPR) and the Dutch GDPR Implementation Act (UAVG).
       </p>
 
       <h2>1. Controller</h2>
       <p>
-        The data controller is ZGlobal B.V., [Registered address], KvK [KvK number]. For any privacy
-        request, contact <a href="mailto:info@zglobalcorp.com">info@zglobalcorp.com</a>.
+        The data controller is Z Global B.V., Parelmoervlinder 10, 3544 DH Utrecht, The Netherlands,
+        KvK 96849568. For any privacy request, contact{" "}
+        <a href="mailto:info@zglobalcorp.com">info@zglobalcorp.com</a>.
       </p>
 
       <h2>2. What we collect</h2>
@@ -42,8 +43,9 @@ export default function PrivacyPage() {
 
       <h2>5. International transfers</h2>
       <p>
-        Where data is processed outside the EEA, we rely on appropriate safeguards such as the European
-        Commission&apos;s Standard Contractual Clauses. [Confirm processor locations and safeguards.]
+        Some of our service providers may process data outside the European Economic Area. Where they do,
+        we rely on appropriate safeguards such as the European Commission&apos;s Standard Contractual
+        Clauses.
       </p>
 
       <h2>6. Retention</h2>

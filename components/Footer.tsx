@@ -28,7 +28,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12px] text-white/30">
-          <span>© 2026 ZGlobal B.V. All rights reserved.</span>
+          <span>© 2026 Z Global B.V. All rights reserved.</span>
           <div className="flex gap-4 flex-wrap">
             <a href="/legal/privacy" className="hover:text-white transition-colors">Privacy</a>
             <a href="/legal/terms" className="hover:text-white transition-colors">Terms</a>

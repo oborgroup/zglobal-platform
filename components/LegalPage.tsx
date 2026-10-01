@@ -40,7 +40,7 @@ export default function LegalPage({
             <h1 className="text-3xl text-[#0d2b5e] mb-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>{title}</h1>
             {updated && <p className="text-xs text-slate-400 mb-6">Last updated: {updated}</p>}
             <div className="mb-6 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-800">
-              Draft — pending legal review. Bracketed fields such as [KvK number] will be completed with ZGlobal B.V.&apos;s registered details.
+              This document is provided for general information and is pending final review by our legal counsel.
             </div>
             <div className={BODY}>{children}</div>
           </article>

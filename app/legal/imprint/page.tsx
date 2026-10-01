@@ -4,24 +4,23 @@ export const metadata = { title: "Legal Notice — ZGlobal" };
 
 export default function ImprintPage() {
   return (
-    <LegalPage title="Legal Notice">
+    <LegalPage title="Legal Notice" updated="30 September 2026">
       <h2>Company details</h2>
       <p>This website is operated by:</p>
       <ul>
-        <li><strong>ZGlobal B.V.</strong></li>
-        <li>Registered address: [Registered address]</li>
-        <li>Chamber of Commerce (KvK) number: [KvK number]</li>
-        <li>VAT / BTW number: [VAT/BTW number]</li>
+        <li><strong>Z Global B.V.</strong> (trading as &quot;ZGlobal&quot;)</li>
+        <li>Registered address: Parelmoervlinder 10, 3544 DH Utrecht, The Netherlands</li>
+        <li>Chamber of Commerce (KvK) number: 96849568</li>
+        <li>VAT / BTW number: NL867793508B01</li>
         <li>Email: <a href="mailto:info@zglobalcorp.com">info@zglobalcorp.com</a></li>
-        <li>Phone: [Phone number]</li>
         <li>Website: <a href="https://www.zglobalcorp.com">www.zglobalcorp.com</a></li>
       </ul>
 
       <h2>Authorised representative</h2>
-      <p>Represented by: [Name of director / authorised representative].</p>
+      <p>Represented by: Xing Zheng (Director).</p>
 
       <h2>Responsible for content</h2>
-      <p>ZGlobal B.V., at the address above.</p>
+      <p>Z Global B.V., at the address above.</p>
 
       <h2>Dispute resolution</h2>
       <p>
