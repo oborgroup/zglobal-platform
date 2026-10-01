@@ -105,8 +105,8 @@ export default function OrdersManager({ orders }: { orders: OrderWithItems[] }) 
                       </div>
                     </div>
 
-                    <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mb-5">
-                      <table className="w-full text-sm">
+                    <div className="bg-white border border-slate-200 rounded-lg overflow-x-auto mb-5">
+                      <table className="w-full text-sm min-w-[520px]">
                         <thead><tr className="bg-slate-50 border-b border-slate-200 text-left">
                           <th className="px-4 py-2 text-xs uppercase tracking-wider text-slate-500 font-semibold">Product</th>
                           <th className="px-4 py-2 text-xs uppercase tracking-wider text-slate-500 font-semibold">SKU</th>
