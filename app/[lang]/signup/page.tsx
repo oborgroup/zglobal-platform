@@ -3,9 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 export default function SignupPage() {
   const supabase = createClient();
+  const { dict } = useLocale();
+  const t = dict.auth;
+  const h = useHref();
 
   const [form, setForm] = useState({
     email: "", password: "", firstName: "", lastName: "", company: "",
@@ -74,14 +78,14 @@ export default function SignupPage() {
         </div>
         <div className="relative z-10">
           <h1 className="text-white text-4xl font-light leading-tight mb-4" style={{ fontFamily: "Georgia, serif" }}>
-            Apply for<br /><span className="italic text-[#c49a3a]">wholesale access.</span>
+            {t.panelSignupTitle1}<br /><span className="italic text-[#c49a3a]">{t.panelSignupTitle2}</span>
           </h1>
           <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-            Approved buyers get access to every brand on the platform, live warehouse stock, and flexible payment terms.
+            {t.panelSignupText}
           </p>
         </div>
         <div className="relative z-10 flex gap-6 text-white/30 text-xs uppercase tracking-wider">
-          <span>3 Brands</span><span>Italy &amp; EU</span><span>NET 30 / 60</span>
+          <span>{t.statBrands}</span><span>{t.statRegion}</span><span>{t.statTerms}</span>
         </div>
       </div>
 
@@ -96,107 +100,107 @@ export default function SignupPage() {
           {success ? (
             <div className="text-center py-16">
               <div className="w-12 h-12 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto mb-5 text-green-600 text-xl">✓</div>
-              <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-2">Application received</h2>
+              <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-2">{t.applicationReceived}</h2>
               <p className="text-sm text-slate-500 mb-8 max-w-sm mx-auto">
-                Thank you, {form.firstName}. We&apos;ve received your wholesale application and will review it within 48 hours. Check your email to verify your account.
+                {t.applicationThanks.replace("{name}", form.firstName)}
               </p>
-              <Link href="/login" className="text-[#0d2b5e] font-medium hover:underline text-sm">Back to sign in</Link>
+              <Link href={h("/login")} className="text-[#0d2b5e] font-medium hover:underline text-sm">{t.backToSignIn}</Link>
             </div>
           ) : (
             <>
-              <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-1">Request wholesale access</h2>
-              <p className="text-sm text-slate-500 mb-8">Fields marked <span className="text-red-500">*</span> are required.</p>
+              <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-1">{t.signupHeading}</h2>
+              <p className="text-sm text-slate-500 mb-8">{t.signupRequiredNote}</p>
 
               {error && <div className="mb-5 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
 
               <form onSubmit={handleSignup} className="space-y-5">
                 <div>
-                  <label className={labelClass}>Email <span className="text-red-500">*</span></label>
-                  <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} placeholder="you@company.com" />
+                  <label className={labelClass}>{t.email} <span className="text-red-500">*</span></label>
+                  <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} placeholder={t.emailPlaceholder} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>Password <span className="text-red-500">*</span></label>
-                  <input type="password" required minLength={6} value={form.password} onChange={(e) => update("password", e.target.value)} className={inputClass} placeholder="At least 6 characters" />
+                  <label className={labelClass}>{t.password} <span className="text-red-500">*</span></label>
+                  <input type="password" required minLength={6} value={form.password} onChange={(e) => update("password", e.target.value)} className={inputClass} placeholder={t.passwordMin} />
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass}>First name <span className="text-red-500">*</span></label>
-                    <input type="text" required value={form.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} placeholder="First name" />
+                    <label className={labelClass}>{t.firstName} <span className="text-red-500">*</span></label>
+                    <input type="text" required value={form.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} placeholder={t.firstName} />
                   </div>
                   <div>
-                    <label className={labelClass}>Last name <span className="text-red-500">*</span></label>
-                    <input type="text" required value={form.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} placeholder="Last name" />
+                    <label className={labelClass}>{t.lastName} <span className="text-red-500">*</span></label>
+                    <input type="text" required value={form.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} placeholder={t.lastName} />
                   </div>
                 </div>
 
                 <div>
-                  <label className={labelClass}>Company name <span className="text-red-500">*</span></label>
-                  <input type="text" required value={form.company} onChange={(e) => update("company", e.target.value)} className={inputClass} placeholder="Your company" />
+                  <label className={labelClass}>{t.companyName} <span className="text-red-500">*</span></label>
+                  <input type="text" required value={form.company} onChange={(e) => update("company", e.target.value)} className={inputClass} placeholder={t.yourCompany} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>VAT / Partita IVA <span className="text-red-500">*</span></label>
-                  <input type="text" required value={form.vat} onChange={(e) => update("vat", e.target.value)} className={inputClass} placeholder="VAT number" />
+                  <label className={labelClass}>{t.vat} <span className="text-red-500">*</span></label>
+                  <input type="text" required value={form.vat} onChange={(e) => update("vat", e.target.value)} className={inputClass} placeholder={t.vatPlaceholder} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>Phone number <span className="text-red-500">*</span></label>
-                  <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} placeholder="+39 ..." />
+                  <label className={labelClass}>{t.phone} <span className="text-red-500">*</span></label>
+                  <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} placeholder={t.phonePlaceholder} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>Street address <span className="text-red-500">*</span></label>
-                  <input type="text" required value={form.address} onChange={(e) => update("address", e.target.value)} className={inputClass} placeholder="Street address" />
+                  <label className={labelClass}>{t.street} <span className="text-red-500">*</span></label>
+                  <input type="text" required value={form.address} onChange={(e) => update("address", e.target.value)} className={inputClass} placeholder={t.street} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>Address line 2</label>
-                  <input type="text" value={form.address2} onChange={(e) => update("address2", e.target.value)} className={inputClass} placeholder="Apartment, suite, etc. (optional)" />
+                  <label className={labelClass}>{t.address2}</label>
+                  <input type="text" value={form.address2} onChange={(e) => update("address2", e.target.value)} className={inputClass} placeholder={t.address2Placeholder} />
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass}>Country <span className="text-red-500">*</span></label>
-                    <input type="text" required value={form.country} onChange={(e) => update("country", e.target.value)} className={inputClass} placeholder="Country" />
+                    <label className={labelClass}>{t.country} <span className="text-red-500">*</span></label>
+                    <input type="text" required value={form.country} onChange={(e) => update("country", e.target.value)} className={inputClass} placeholder={t.country} />
                   </div>
                   <div>
-                    <label className={labelClass}>Town / City <span className="text-red-500">*</span></label>
-                    <input type="text" required value={form.city} onChange={(e) => update("city", e.target.value)} className={inputClass} placeholder="City" />
+                    <label className={labelClass}>{t.city} <span className="text-red-500">*</span></label>
+                    <input type="text" required value={form.city} onChange={(e) => update("city", e.target.value)} className={inputClass} placeholder={t.city} />
                   </div>
                 </div>
 
                 <div>
-                  <label className={labelClass}>Postcode / ZIP <span className="text-red-500">*</span></label>
-                  <input type="text" required value={form.postcode} onChange={(e) => update("postcode", e.target.value)} className={inputClass} placeholder="Postcode" />
+                  <label className={labelClass}>{t.postcode} <span className="text-red-500">*</span></label>
+                  <input type="text" required value={form.postcode} onChange={(e) => update("postcode", e.target.value)} className={inputClass} placeholder={t.postcode} />
                 </div>
 
                 <div>
-                  <label className={labelClass}>Business license <span className="text-red-500">*</span></label>
+                  <label className={labelClass}>{t.businessLicense} <span className="text-red-500">*</span></label>
                   <input type="file" required accept=".pdf,.jpg,.jpeg,.png" onChange={(e) => setLicense(e.target.files?.[0] || null)} className="w-full text-sm text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-xs file:uppercase file:tracking-wider file:bg-[#0d2b5e] file:text-white hover:file:bg-[#163d80] file:cursor-pointer border border-slate-200 rounded-md p-2" />
-                  <p className="text-[11px] text-slate-400 mt-1.5">PDF, JPG or PNG. Max 5MB.</p>
+                  <p className="text-[11px] text-slate-400 mt-1.5">{t.licenseHint}</p>
                 </div>
 
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
                   <span className="text-xs text-slate-500 leading-relaxed">
-                    I consent to receive newsletters, commercial communications, promotions and product updates. I can withdraw consent at any time.
+                    {t.consent}
                   </span>
                 </label>
 
                 <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Your personal data will be used to support your experience on this platform, manage access to your account, and for other purposes described in our privacy policy.
+                  {t.privacyNote}
                 </p>
 
                 <button type="submit" disabled={loading} className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60">
-                  {loading ? "Submitting application…" : "Submit B2B application"}
+                  {loading ? t.submitting : t.submitApplication}
                 </button>
               </form>
 
               <p className="text-center text-sm text-slate-500 mt-8">
-                Already have an account?{" "}
-                <Link href="/login" className="text-[#0d2b5e] font-medium hover:underline">Sign in</Link>
+                {t.haveAccount}{" "}
+                <Link href={h("/login")} className="text-[#0d2b5e] font-medium hover:underline">{t.signIn}</Link>
               </p>
             </>
           )}

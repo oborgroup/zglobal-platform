@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
   const supabase = createClient();
+  const { dict } = useLocale();
+  const t = dict.auth;
+  const h = useHref();
 
   const [checking, setChecking] = useState(true);
   const [hasSession, setHasSession] = useState(false);
@@ -57,11 +61,11 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setError(null);
     if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+      setError(t.errPwMin);
       return;
     }
     if (password !== confirm) {
-      setError("Passwords do not match.");
+      setError(t.errPwMatch);
       return;
     }
     setSaving(true);
@@ -74,8 +78,8 @@ export default function ResetPasswordPage() {
     setDone(true);
   }
 
-  const continueHref = isAdmin ? "/admin" : "/dashboard";
-  const signInHref = isAdmin ? "/admin/login" : "/login";
+  const continueHref = isAdmin ? "/admin" : h("/dashboard");
+  const signInHref = isAdmin ? "/admin/login" : h("/login");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6">
@@ -93,15 +97,15 @@ export default function ResetPasswordPage() {
 
         <div className="bg-white border border-slate-200 rounded-xl p-8">
           {checking ? (
-            <p className="text-sm text-slate-400 text-center">Verifying link…</p>
+            <p className="text-sm text-slate-400 text-center">{t.verifyingLink}</p>
           ) : done ? (
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto mb-5 text-green-600 text-xl">
                 ✓
               </div>
-              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">Password set</h2>
+              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">{t.passwordSetHeading}</h2>
               <p className="text-sm text-slate-500 mb-6">
-                You can now sign in with your new password.
+                {t.passwordSetText}
               </p>
               <button
                 onClick={() => {
@@ -110,24 +114,24 @@ export default function ResetPasswordPage() {
                 }}
                 className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors"
               >
-                {isAdmin ? "Go to admin console" : "Go to your dashboard"}
+                {isAdmin ? t.goToAdmin : t.goToDashboard}
               </button>
             </div>
           ) : !hasSession ? (
             <div className="text-center">
-              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">Link expired or invalid</h2>
+              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">{t.linkInvalidHeading}</h2>
               <p className="text-sm text-slate-500 mb-6">
-                This password link is no longer valid. Request a new one.
+                {t.linkInvalidText}
               </p>
-              <a href="/forgot-password" className="text-[#0d2b5e] font-medium hover:underline text-sm">
-                Request a new link
+              <a href={h("/forgot-password")} className="text-[#0d2b5e] font-medium hover:underline text-sm">
+                {t.requestNewLink}
               </a>
             </div>
           ) : (
             <>
-              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-1">Set a new password</h2>
+              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-1">{t.setNewPasswordHeading}</h2>
               <p className="text-sm text-slate-500 mb-6">
-                {email ? <>For <span className="font-medium">{email}</span></> : "Choose a new password."}
+                {email ? <>{t.newPasswordFor.split("{email}")[0]}<span className="font-medium">{email}</span>{t.newPasswordFor.split("{email}")[1]}</> : t.chooseNewPassword}
               </p>
 
               {error && (
@@ -138,7 +142,7 @@ export default function ResetPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">New password</label>
+                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{t.newPassword}</label>
                   <input
                     type="password"
                     required
@@ -146,18 +150,18 @@ export default function ResetPasswordPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-[#0d2b5e]"
-                    placeholder="At least 6 characters"
+                    placeholder={t.passwordMin}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Confirm password</label>
+                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{t.confirmPassword}</label>
                   <input
                     type="password"
                     required
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
                     className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-[#0d2b5e]"
-                    placeholder="Re-enter password"
+                    placeholder={t.reenterPassword}
                   />
                 </div>
                 <button
@@ -165,12 +169,12 @@ export default function ResetPasswordPage() {
                   disabled={saving}
                   className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60"
                 >
-                  {saving ? "Saving…" : "Set password"}
+                  {saving ? t.saving : t.setPassword}
                 </button>
               </form>
 
               <p className="text-center text-sm text-slate-400 mt-6">
-                <a href={signInHref} className="hover:underline">Back to sign in</a>
+                <a href={signInHref} className="hover:underline">{t.backToSignIn}</a>
               </p>
             </>
           )}

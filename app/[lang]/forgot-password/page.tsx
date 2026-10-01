@@ -3,13 +3,17 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 function ForgotPasswordForm() {
   const supabase = createClient();
+  const { locale, dict } = useLocale();
+  const t = dict.auth;
+  const h = useHref();
   const params = useSearchParams();
   // Where the "back to sign in" link points; admins arrive with ?admin=1.
   const isAdminContext = params.get("admin") === "1";
-  const signInHref = isAdminContext ? "/admin/login" : "/login";
+  const signInHref = isAdminContext ? "/admin/login" : h("/login");
 
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
@@ -25,7 +29,7 @@ function ForgotPasswordForm() {
     // token_hash email template). window.location.origin keeps it correct on
     // both localhost and production.
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${window.location.origin}/${locale}/reset-password`,
     });
     setLoading(false);
 
@@ -58,20 +62,21 @@ function ForgotPasswordForm() {
               <div className="w-12 h-12 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto mb-5 text-green-600 text-xl">
                 ✓
               </div>
-              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">Check your email</h2>
+              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-2">{t.checkEmailHeading}</h2>
               <p className="text-sm text-slate-500 mb-6">
-                If an account exists for <span className="font-medium">{email}</span>, we&apos;ve sent
-                a link to reset the password. The link expires in 1 hour.
+                {t.resetSentText.split("{email}")[0]}
+                <span className="font-medium">{email}</span>
+                {t.resetSentText.split("{email}")[1]}
               </p>
               <a href={signInHref} className="text-[#0d2b5e] font-medium hover:underline text-sm">
-                Back to sign in
+                {t.backToSignIn}
               </a>
             </div>
           ) : (
             <>
-              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-1">Reset your password</h2>
+              <h2 className="text-xl font-semibold text-[#0d2b5e] mb-1">{t.resetHeading}</h2>
               <p className="text-sm text-slate-500 mb-6">
-                Enter your account email and we&apos;ll send you a reset link.
+                {t.resetIntro}
               </p>
 
               {error && (
@@ -82,14 +87,14 @@ function ForgotPasswordForm() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Email</label>
+                  <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{t.email}</label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e]"
-                    placeholder="you@company.com"
+                    placeholder={t.emailPlaceholder}
                   />
                 </div>
                 <button
@@ -97,14 +102,14 @@ function ForgotPasswordForm() {
                   disabled={loading}
                   className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60"
                 >
-                  {loading ? "Sending…" : "Send reset link"}
+                  {loading ? t.sending : t.sendResetLink}
                 </button>
               </form>
 
               <p className="text-center text-sm text-slate-400 mt-8">
-                Remembered it?{" "}
+                {t.rememberedIt}{" "}
                 <a href={signInHref} className="text-[#0d2b5e] font-medium hover:underline">
-                  Back to sign in
+                  {t.backToSignIn}
                 </a>
               </p>
             </>

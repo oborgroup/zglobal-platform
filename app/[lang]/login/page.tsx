@@ -4,10 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
+  const { dict } = useLocale();
+  const t = dict.auth;
+  const h = useHref();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +28,7 @@ export default function LoginPage() {
       setError(error.message);
       return;
     }
-    router.push("/dashboard");
+    router.push(h("/dashboard"));
     router.refresh();
   }
 
@@ -44,18 +48,18 @@ export default function LoginPage() {
         </div>
         <div className="relative z-10">
           <h1 className="text-white text-4xl font-light leading-tight mb-4" style={{ fontFamily: "Georgia, serif" }}>
-            Every brand.
+            {t.panelSignInTitle1}
             <br />
-            <span className="italic text-[#c49a3a]">One platform.</span>
+            <span className="italic text-[#c49a3a]">{t.panelSignInTitle2}</span>
           </h1>
           <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-            Outdoor gear and vacuum machines — all your wholesale brands in one place. Live inventory from Italy-based warehouses.
+            {t.panelSignInText}
           </p>
         </div>
         <div className="relative z-10 flex gap-6 text-white/30 text-xs uppercase tracking-wider">
-          <span>3 Brands</span>
-          <span>Italy &amp; EU</span>
-          <span>NET 30 / 60</span>
+          <span>{t.statBrands}</span>
+          <span>{t.statRegion}</span>
+          <span>{t.statTerms}</span>
         </div>
       </div>
 
@@ -67,8 +71,8 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-1">Sign in</h2>
-          <p className="text-sm text-slate-500 mb-8">Welcome back. Access your wholesale account.</p>
+          <h2 className="text-2xl font-semibold text-[#0d2b5e] mb-1">{t.signInHeading}</h2>
+          <p className="text-sm text-slate-500 mb-8">{t.signInIntro}</p>
 
           {error && (
             <div className="mb-5 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
@@ -78,27 +82,27 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Email</label>
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder="you@company.com" />
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{t.email}</label>
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder={t.emailPlaceholder} />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">Password</label>
-              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder="••••••••" />
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{t.password}</label>
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#0d2b5e] transition-colors" placeholder={t.passwordPlaceholder} />
             </div>
 
             <div className="text-right -mt-2">
-              <Link href="/forgot-password" className="text-xs text-[#0d2b5e] hover:underline">Forgot password?</Link>
+              <Link href={h("/forgot-password")} className="text-xs text-[#0d2b5e] hover:underline">{t.forgotPassword}</Link>
             </div>
 
             <button type="submit" disabled={loading} className="w-full bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3 rounded-md hover:bg-[#163d80] transition-colors disabled:opacity-60">
-              {loading ? "Signing in…" : "Sign in"}
+              {loading ? t.signingIn : t.signIn}
             </button>
           </form>
 
           <p className="text-center text-sm text-slate-500 mt-8">
-            No account?{" "}
-            <Link href="/signup" className="text-[#0d2b5e] font-medium hover:underline">Request access</Link>
+            {t.noAccount}{" "}
+            <Link href={h("/signup")} className="text-[#0d2b5e] font-medium hover:underline">{t.requestAccess}</Link>
           </p>
         </div>
       </div>
