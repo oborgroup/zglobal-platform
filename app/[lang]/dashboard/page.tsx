@@ -119,8 +119,8 @@ export default function DashboardPage() {
                 <a href={h("/catalog")} className="inline-block bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-6 py-3 rounded-md hover:bg-[#163d80]">{t.browseCatalog}</a>
               </div>
             ) : (
-              <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
-                <table className="w-full text-sm">
+              <div className="bg-white border border-slate-200 rounded-lg overflow-x-auto">
+                <table className="w-full text-sm min-w-[520px]">
                   <thead><tr className="bg-slate-50 border-b border-slate-200 text-left">
                     <th className="px-4 py-3 text-xs uppercase tracking-wider text-slate-500 font-semibold">{t.thOrder}</th>
                     <th className="px-4 py-3 text-xs uppercase tracking-wider text-slate-500 font-semibold">{t.thDate}</th>

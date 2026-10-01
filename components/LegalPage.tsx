@@ -33,7 +33,7 @@ export default function LegalPage({
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-1 max-w-[1100px] w-full mx-auto px-5 md:px-14 py-12">
-        <div className="grid md:grid-cols-[220px_1fr] gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
           <aside className="md:sticky md:top-24 self-start">
             <div className="text-[10px] uppercase tracking-[0.15em] text-[#c49a3a] mb-3">{dict.legal.label}</div>
             <nav className="space-y-1">

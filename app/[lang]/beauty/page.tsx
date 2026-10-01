@@ -154,7 +154,7 @@ export default function BeautyPage() {
 
         {/* BRAND STORY */}
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-20">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-3">{t.theBrand}</div>
               <h2 className="text-3xl text-[#0d2b5e] mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>

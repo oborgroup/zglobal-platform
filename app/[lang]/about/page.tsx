@@ -34,7 +34,7 @@ export default function AboutPage() {
         </div>
 
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-16">
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2 space-y-6">
               <p className="text-slate-600 leading-relaxed">
                 {t.para1}

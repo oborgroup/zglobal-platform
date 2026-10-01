@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
             <a href={h("/catalog")} className="text-[#0d2b5e] text-sm hover:underline">{t.returnToCatalog}</a>
           </div>
         ) : product ? (
-          <div className="grid md:grid-cols-2 gap-10 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-6">
             <div>
               <div className="bg-white border border-slate-200 rounded-lg overflow-hidden aspect-square flex items-center justify-center mb-3">
                 {gallery.length > 0 ? (
