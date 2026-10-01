@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { addToCart } from "@/lib/cart";
 import { useBuyer } from "@/lib/useBuyer";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 type Product = {
   id: string; name: string; sku: string | null; category: string | null;
@@ -25,6 +26,9 @@ export default function ProductDetailPage() {
   const id = params.id as string;
   const supabase = createClient();
   const router = useRouter();
+  const { dict } = useLocale();
+  const t = dict.product;
+  const h = useHref();
   const { isApproved, state } = useBuyer();
   const [product, setProduct] = useState<Product | null>(null);
   const [brand, setBrand] = useState<Brand | null>(null);
@@ -93,21 +97,21 @@ export default function ProductDetailPage() {
 
   function handleOrder() {
     handleAdd();
-    router.push("/cart");
+    router.push(h("/cart"));
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Header />
       <main className="flex-1 max-w-[1440px] w-full mx-auto px-5 md:px-14 py-8">
-        <a href="/catalog" className="text-xs uppercase tracking-wider text-slate-400 hover:text-[#0d2b5e] transition-colors">← Back to catalog</a>
+        <a href={h("/catalog")} className="text-xs uppercase tracking-wider text-slate-400 hover:text-[#0d2b5e] transition-colors">{t.backToCatalog}</a>
 
         {loading ? (
-          <div className="text-center text-slate-400 py-32 text-sm">Loading…</div>
+          <div className="text-center text-slate-400 py-32 text-sm">{t.loading}</div>
         ) : notFound ? (
           <div className="text-center text-slate-400 py-32">
-            <p className="text-sm mb-4">Product not found.</p>
-            <a href="/catalog" className="text-[#0d2b5e] text-sm hover:underline">Return to catalog</a>
+            <p className="text-sm mb-4">{t.notFound}</p>
+            <a href={h("/catalog")} className="text-[#0d2b5e] text-sm hover:underline">{t.returnToCatalog}</a>
           </div>
         ) : product ? (
           <div className="grid md:grid-cols-2 gap-10 mt-6">
@@ -115,7 +119,7 @@ export default function ProductDetailPage() {
               <div className="bg-white border border-slate-200 rounded-lg overflow-hidden aspect-square flex items-center justify-center mb-3">
                 {gallery.length > 0 ? (
                   <img src={gallery[activeImg] || gallery[0]} alt={product.name} className="w-full h-full object-contain" />
-                ) : (<div className="text-slate-300 text-sm">No image available</div>)}
+                ) : (<div className="text-slate-300 text-sm">{t.noImage}</div>)}
               </div>
               {gallery.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto pb-1">
@@ -138,12 +142,12 @@ export default function ProductDetailPage() {
 
               <div className="flex items-center gap-4 mb-5">
                 {(selectedVariant?.stock ?? product.stock) > 0 ? (
-                  <span className="text-sm text-green-600 font-medium">● In stock</span>
+                  <span className="text-sm text-green-600 font-medium">● {t.inStock}</span>
                 ) : (
-                  <span className="text-sm text-slate-400 font-medium">● Backorder</span>
+                  <span className="text-sm text-slate-400 font-medium">● {t.backorder}</span>
                 )}
                 {(selectedVariant?.sku || product.sku) && (
-                  <span className="text-xs text-slate-400">SKU: {selectedVariant?.sku || product.sku}</span>
+                  <span className="text-xs text-slate-400">{t.sku} {selectedVariant?.sku || product.sku}</span>
                 )}
               </div>
 
@@ -152,17 +156,17 @@ export default function ProductDetailPage() {
                   wholesale != null ? (
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-semibold text-[#0d2b5e]">€{wholesale.toFixed(2)}</span>
-                      <span className="text-xs text-slate-400 uppercase tracking-wider">Wholesale / unit · excl. VAT</span>
+                      <span className="text-xs text-slate-400 uppercase tracking-wider">{t.wholesaleUnit}</span>
                     </div>
                   ) : (
-                    <span className="text-sm text-slate-500">Price on request</span>
+                    <span className="text-sm text-slate-500">{t.priceOnRequest}</span>
                   )
                 ) : state === "guest" ? (
-                  <div className="text-sm text-slate-600"><a href="/login" className="text-[#0d2b5e] font-medium hover:underline">Sign in</a> to see wholesale pricing.</div>
+                  <div className="text-sm text-slate-600"><a href={h("/login")} className="text-[#0d2b5e] font-medium hover:underline">{t.signIn}</a> {t.signInToSee}</div>
                 ) : state === "pending" ? (
-                  <div className="text-sm text-amber-700">Wholesale pricing unlocks once your account is approved.</div>
+                  <div className="text-sm text-amber-700">{t.pendingPricing}</div>
                 ) : (
-                  <div className="text-sm text-slate-500">Wholesale pricing available for approved buyers.</div>
+                  <div className="text-sm text-slate-500">{t.approvedPricing}</div>
                 )}
               </div>
 
@@ -170,7 +174,7 @@ export default function ProductDetailPage() {
                 <div className="mb-4">
                   <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{opt1Name}</label>
                   <select value={opt1} onChange={(e) => setOpt1(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-[#0d2b5e]">
-                    <option value="">Select {opt1Name.toLowerCase()}…</option>
+                    <option value="">{t.select} {opt1Name.toLowerCase()}…</option>
                     {opt1Values.map((v) => <option key={v} value={v}>{v}</option>)}
                   </select>
                 </div>
@@ -179,7 +183,7 @@ export default function ProductDetailPage() {
                 <div className="mb-4">
                   <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">{opt2Name}</label>
                   <select value={opt2} onChange={(e) => setOpt2(e.target.value)} className="w-full border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-[#0d2b5e]">
-                    <option value="">Select {opt2Name.toLowerCase()}…</option>
+                    <option value="">{t.select} {opt2Name.toLowerCase()}…</option>
                     {opt2Values.map((v) => <option key={v} value={v}>{v}</option>)}
                   </select>
                 </div>
@@ -187,7 +191,7 @@ export default function ProductDetailPage() {
 
               <div className="mb-6">
                 <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2">
-                  Quantity {moq > 1 && <span className="text-slate-400 normal-case">· MOQ {moq} units</span>}
+                  {t.quantity} {moq > 1 && <span className="text-slate-400 normal-case">· {t.moq.replace("{n}", String(moq))}</span>}
                 </label>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center border border-slate-200 rounded-md">
@@ -196,7 +200,7 @@ export default function ProductDetailPage() {
                     <button onClick={() => setQty((q) => q + 1)} className="px-4 py-2.5 text-slate-500 hover:text-[#0d2b5e] text-lg">+</button>
                   </div>
                   {isApproved && wholesale != null && (
-                    <span className="text-sm text-slate-500">Subtotal: <span className="font-semibold text-[#0d2b5e]">€{(wholesale * qty).toFixed(2)}</span></span>
+                    <span className="text-sm text-slate-500">{t.subtotal} <span className="font-semibold text-[#0d2b5e]">€{(wholesale * qty).toFixed(2)}</span></span>
                   )}
                 </div>
               </div>
@@ -204,24 +208,24 @@ export default function ProductDetailPage() {
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <button onClick={handleAdd} className="flex-1 bg-[#0d2b5e] text-white text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#163d80] transition-colors flex items-center justify-center gap-2">
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-                  {added ? "Added ✓" : "Add to Cart"}
+                  {added ? t.added : t.addToCart}
                 </button>
                 <button onClick={handleOrder} className="flex-1 border border-[#0d2b5e] text-[#0d2b5e] text-sm uppercase tracking-wider py-3.5 rounded-md hover:bg-[#0d2b5e] hover:text-white transition-colors">
-                  Add &amp; go to cart
+                  {t.addAndGo}
                 </button>
               </div>
 
               {product.description && (
                 <div className="mb-6 border-t border-slate-200 pt-6">
-                  <div className="text-xs uppercase tracking-wider text-slate-400 mb-2">Description</div>
+                  <div className="text-xs uppercase tracking-wider text-slate-400 mb-2">{t.description}</div>
                   <p className="text-sm text-slate-600 leading-relaxed">{product.description}</p>
                 </div>
               )}
 
               <div className="border-t border-slate-200 pt-4 space-y-2">
-                {product.category && <div className="flex text-sm"><span className="text-slate-400 w-28">Category</span><span className="text-slate-700">{product.category}</span></div>}
-                {brand?.website && <div className="flex text-sm"><span className="text-slate-400 w-28">Brand</span><span className="text-slate-700">{brand.website}</span></div>}
-                {variants.length > 0 && <div className="flex text-sm"><span className="text-slate-400 w-28">Variants</span><span className="text-slate-700">{variants.length} available</span></div>}
+                {product.category && <div className="flex text-sm"><span className="text-slate-400 w-28">{t.category}</span><span className="text-slate-700">{product.category}</span></div>}
+                {brand?.website && <div className="flex text-sm"><span className="text-slate-400 w-28">{t.brand}</span><span className="text-slate-700">{brand.website}</span></div>}
+                {variants.length > 0 && <div className="flex text-sm"><span className="text-slate-400 w-28">{t.variants}</span><span className="text-slate-700">{t.available.replace("{n}", String(variants.length))}</span></div>}
               </div>
             </div>
           </div>

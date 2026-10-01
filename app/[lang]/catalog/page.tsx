@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { sortProducts, SORT_OPTIONS, type SortKey } from "@/lib/categories";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 type Product = {
   id: string; name: string; sku: string | null; category: string | null;
@@ -31,6 +32,10 @@ const PAGE_SIZE = 24;
 
 export default function CatalogPage() {
   const supabase = createClient();
+  const { dict } = useLocale();
+  const t = dict.catalog;
+  const h = useHref();
+  const sortLabel: Record<SortKey, string> = { "price-desc": t.sortPriceDesc, "price-asc": t.sortPriceAsc, name: t.sortName };
   const [products, setProducts] = useState<Product[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [activeBrand, setActiveBrand] = useState<string>("all");
@@ -69,15 +74,15 @@ export default function CatalogPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 pt-10 pb-6">
-          <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-2">Product Catalog</div>
+          <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-2">{t.eyebrow}</div>
           <h1 className="text-3xl text-[#0d2b5e]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>
-            Browse the <em>full range</em>
+            {t.title} <em>{t.titleEm}</em>
           </h1>
         </div>
 
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 pb-6">
           <div className="flex gap-2 flex-wrap">
-            <button onClick={() => selectBrand("all")} className={`text-[11px] uppercase tracking-wider px-4 py-2 rounded-sm border transition-colors ${activeBrand === "all" ? "bg-[#0d2b5e] text-white border-[#0d2b5e]" : "bg-white text-slate-500 border-slate-200 hover:border-[#0d2b5e]"}`}>All Products</button>
+            <button onClick={() => selectBrand("all")} className={`text-[11px] uppercase tracking-wider px-4 py-2 rounded-sm border transition-colors ${activeBrand === "all" ? "bg-[#0d2b5e] text-white border-[#0d2b5e]" : "bg-white text-slate-500 border-slate-200 hover:border-[#0d2b5e]"}`}>{t.allProducts}</button>
             {brands.map((b) => (
               <button key={b.id} onClick={() => selectBrand(b.id)} className={`text-[11px] uppercase tracking-wider px-4 py-2 rounded-sm border transition-colors ${activeBrand === b.id ? "bg-[#0d2b5e] text-white border-[#0d2b5e]" : "bg-white text-slate-500 border-slate-200 hover:border-[#0d2b5e]"}`}>{b.name}</button>
             ))}
@@ -86,7 +91,7 @@ export default function CatalogPage() {
             <input
               value={q}
               onChange={(e) => { setQ(e.target.value); setVisibleCount(PAGE_SIZE); }}
-              placeholder="Search products or SKU…"
+              placeholder={t.searchPlaceholder}
               className="w-full sm:max-w-xs border border-slate-200 rounded-md px-4 py-2 text-sm bg-white focus:outline-none focus:border-[#0d2b5e]"
             />
             <select
@@ -94,7 +99,7 @@ export default function CatalogPage() {
               onChange={(e) => { setSort(e.target.value as SortKey); setVisibleCount(PAGE_SIZE); }}
               className="border border-slate-200 rounded-md px-3 py-2 text-sm bg-white text-slate-600 focus:outline-none focus:border-[#0d2b5e] sm:ml-auto"
             >
-              {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{sortLabel[o.value]}</option>)}
             </select>
           </div>
         </div>
@@ -112,7 +117,7 @@ export default function CatalogPage() {
           ) : (
             <>
               <div className="text-xs text-slate-400 mb-4">
-                Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} products
+                {t.showing.replace("{shown}", String(Math.min(visibleCount, filtered.length))).replace("{total}", String(filtered.length))}
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {visible.map((p) => <Card key={p.id} p={p} brandName={brandName(p.brand_id)} />)}
@@ -120,7 +125,7 @@ export default function CatalogPage() {
               {visibleCount < filtered.length && (
                 <div className="text-center mt-10">
                   <button onClick={() => setVisibleCount((c) => c + PAGE_SIZE)} className="bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-8 py-3 rounded-md hover:bg-[#163d80] transition-colors">
-                    Load more products
+                    {t.loadMore}
                   </button>
                 </div>
               )}
@@ -135,19 +140,19 @@ export default function CatalogPage() {
   function Card({ p, brandName }: { p: Product; brandName: string }) {
     const cat = cleanCategory(p.category);
     return (
-      <a href={`/product/${p.id}`} className="bg-white border border-slate-200 rounded-md overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group block">
+      <a href={h(`/product/${p.id}`)} className="bg-white border border-slate-200 rounded-md overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group block">
         <div className="aspect-square bg-slate-50 overflow-hidden flex items-center justify-center relative">
           {cat && <span className="absolute top-2 left-2 bg-white/90 text-[9px] uppercase tracking-wider text-slate-500 px-2 py-0.5 rounded-sm">{cat}</span>}
           {p.image_url ? (
             <img src={thumb(p.image_url)} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-          ) : (<div className="text-slate-300 text-xs">No image</div>)}
+          ) : (<div className="text-slate-300 text-xs">{t.noImage}</div>)}
         </div>
         <div className="p-4">
           <div className="text-[9px] uppercase tracking-wider text-[#c49a3a] mb-1">{brandName}</div>
           <div className="text-sm text-[#0d2b5e] font-medium leading-snug mb-2 line-clamp-2 min-h-[2.5rem]">{p.name}</div>
           <div className="flex items-center justify-between">
-            <span className="text-[11px]">{p.stock > 0 ? <span className="text-green-600">In stock</span> : <span className="text-slate-400">Backorder</span>}</span>
-            <span className="text-[10px] uppercase tracking-wider text-[#0d2b5e] border-b border-slate-200">View details</span>
+            <span className="text-[11px]">{p.stock > 0 ? <span className="text-green-600">{t.inStock}</span> : <span className="text-slate-400">{t.backorder}</span>}</span>
+            <span className="text-[10px] uppercase tracking-wider text-[#0d2b5e] border-b border-slate-200">{t.viewDetails}</span>
           </div>
         </div>
       </a>
