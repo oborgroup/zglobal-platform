@@ -42,5 +42,20 @@
     "legalNotice": "Juridische kennisgeving",
     "rights": "Alle rechten voorbehouden.",
     "b2bOnly": "EU · Alleen B2B-groothandel"
+  },
+  "cookie": {
+    "message": "We gebruiken essentiële cookies om deze site te laten werken (inloggen en uw winkelwagen). Met uw toestemming gebruiken we mogelijk ook optionele cookies. Zie ons",
+    "policy": "Cookiebeleid",
+    "essential": "Alleen essentieel",
+    "acceptAll": "Alles accepteren"
+  },
+  "legal": {
+    "label": "Juridisch",
+    "updated": "Laatst bijgewerkt:",
+    "banner": "Dit document is bedoeld ter algemene informatie en wordt nog definitief beoordeeld door onze juridisch adviseur.",
+    "imprint": "Juridische kennisgeving",
+    "privacy": "Privacybeleid",
+    "terms": "Algemene voorwaarden",
+    "cookies": "Cookiebeleid"
   }
 }

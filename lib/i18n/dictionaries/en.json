@@ -42,5 +42,20 @@
     "legalNotice": "Legal notice",
     "rights": "All rights reserved.",
     "b2bOnly": "EU · B2B wholesale only"
+  },
+  "cookie": {
+    "message": "We use essential cookies to run this site (sign-in and your cart). With your consent we may also use optional cookies. See our",
+    "policy": "Cookie Policy",
+    "essential": "Essential only",
+    "acceptAll": "Accept all"
+  },
+  "legal": {
+    "label": "Legal",
+    "updated": "Last updated:",
+    "banner": "This document is provided for general information and is pending final review by our legal counsel.",
+    "imprint": "Legal notice",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "cookies": "Cookie Policy"
   }
 }
