@@ -5,11 +5,15 @@ import { createClient } from "@/lib/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { deriveCategory, slugifySub, type Product } from "@/lib/categories";
+import { useLocale, useHref } from "@/lib/i18n/LocaleProvider";
 
 type Brand = { id: string; name: string };
 
 export default function BeautyPage() {
   const supabase = createClient();
+  const { dict } = useLocale();
+  const t = dict.beauty;
+  const h = useHref();
   const [products, setProducts] = useState<Product[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,19 +70,19 @@ export default function BeautyPage() {
             }}
           />
           <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-20 relative z-10">
-            <div className="text-[10px] tracking-[0.25em] uppercase text-[#c49a3a] mb-4">Beauty &amp; Cosmetics</div>
+            <div className="text-[10px] tracking-[0.25em] uppercase text-[#c49a3a] mb-4">{t.eyebrow}</div>
             <h1 className="text-4xl md:text-6xl font-light leading-[1.05] max-w-3xl" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              Colour, glow &amp; glam —<br /><span className="italic text-[#c49a3a]">wholesale by SHEGLAM.</span>
+              {t.heroTitle1}<br /><span className="italic text-[#c49a3a]">{t.heroTitle2}</span>
             </h1>
             <p className="text-white/60 text-base leading-relaxed max-w-xl mt-6">
-              {loading ? "Loading the beauty range…" : `${beauty.length} makeup SKUs across ${subs.length} categories — blush, lips, eyes, complexion and more. Full master-carton wholesale, EXW EU.`}
+              {loading ? t.loadingRange : t.statLine.replace("{skus}", String(beauty.length)).replace("{cats}", String(subs.length))}
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <a href="/category/beauty" className="bg-[#c49a3a] text-[#0d2b5e] text-xs uppercase tracking-wider font-semibold px-7 py-3 rounded-sm hover:bg-[#d4a94a] transition-colors">
-                Shop all beauty
+              <a href={h("/category/beauty")} className="bg-[#c49a3a] text-[#0d2b5e] text-xs uppercase tracking-wider font-semibold px-7 py-3 rounded-sm hover:bg-[#d4a94a] transition-colors">
+                {t.shopAll}
               </a>
-              <a href="/signup" className="border border-white/30 text-white text-xs uppercase tracking-wider px-7 py-3 rounded-sm hover:bg-white/10 transition-colors">
-                Request wholesale access
+              <a href={h("/signup")} className="border border-white/30 text-white text-xs uppercase tracking-wider px-7 py-3 rounded-sm hover:bg-white/10 transition-colors">
+                {t.requestAccess}
               </a>
             </div>
           </div>
@@ -88,12 +92,12 @@ export default function BeautyPage() {
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-16">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-2">Shop by category</div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-2">{t.shopByCategory}</div>
               <h2 className="text-3xl text-[#0d2b5e]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>
-                Find your <em>finish</em>
+                {t.findYour} <em>{t.findYourEm}</em>
               </h2>
             </div>
-            <a href="/category/beauty" className="text-xs uppercase tracking-wider text-[#0d2b5e] hover:underline hidden sm:block">All categories →</a>
+            <a href={h("/category/beauty")} className="text-xs uppercase tracking-wider text-[#0d2b5e] hover:underline hidden sm:block">{t.allCategories}</a>
           </div>
           {loading ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -102,14 +106,14 @@ export default function BeautyPage() {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {subs.slice(0, 12).map(([sub, info]) => (
-                <a key={sub} href={`/category/beauty/${slugifySub(sub)}`} className="group block">
+                <a key={sub} href={h(`/category/beauty/${slugifySub(sub)}`)} className="group block">
                   <div className="aspect-[3/4] bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center mb-2 group-hover:border-[#0d2b5e] transition-colors">
                     {info.sample?.image_url ? (
                       <img src={info.sample.image_url} alt={sub} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     ) : <span className="text-slate-300 text-xs">—</span>}
                   </div>
                   <div className="text-sm font-medium text-[#0d2b5e] leading-tight">{sub}</div>
-                  <div className="text-[11px] text-slate-400">{info.count} products</div>
+                  <div className="text-[11px] text-slate-400">{t.productsCount.replace("{n}", String(info.count))}</div>
                 </a>
               ))}
             </div>
@@ -119,14 +123,14 @@ export default function BeautyPage() {
         {/* FEATURED PRODUCTS */}
         <div className="bg-[#fdf2f8] border-y border-[#fce7f3]">
           <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-16">
-            <div className="text-[10px] tracking-[0.2em] uppercase text-[#be185d] mb-2">Trending now</div>
+            <div className="text-[10px] tracking-[0.2em] uppercase text-[#be185d] mb-2">{t.trendingNow}</div>
             <h2 className="text-3xl text-[#0d2b5e] mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>
-              Bestsellers &amp; <em>new arrivals</em>
+              {t.bestsellers} <em>{t.bestsellersEm}</em>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {(loading ? Array.from({ length: 12 }).map(() => null) : featured).map((p, i) =>
                 p ? (
-                  <a key={p.id} href={`/product/${p.id}`} className="bg-white border border-slate-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group block">
+                  <a key={p.id} href={h(`/product/${p.id}`)} className="bg-white border border-slate-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-[#0d2b5e] transition-all group block">
                     <div className="aspect-square bg-white overflow-hidden flex items-center justify-center">
                       <img src={p.image_url as string} alt={p.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
@@ -141,8 +145,8 @@ export default function BeautyPage() {
               )}
             </div>
             <div className="text-center mt-10">
-              <a href="/category/beauty" className="inline-block bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-8 py-3 rounded-md hover:bg-[#163d80] transition-colors">
-                View all beauty products
+              <a href={h("/category/beauty")} className="inline-block bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-8 py-3 rounded-md hover:bg-[#163d80] transition-colors">
+                {t.viewAll}
               </a>
             </div>
           </div>
@@ -152,26 +156,25 @@ export default function BeautyPage() {
         <div className="max-w-[1440px] mx-auto px-5 md:px-14 py-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-3">The brand</div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-[#c49a3a] mb-3">{t.theBrand}</div>
               <h2 className="text-3xl text-[#0d2b5e] mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}>
-                SHEGLAM — <em>viral beauty,</em> wholesale-ready
+                {t.brandTitle1} <em>{t.brandTitleEm}</em> {t.brandTitle2}
               </h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                SHEGLAM brings trend-driven, social-first makeup to your shelves — blush, liquid tints, lip plumpers, concealers,
-                mascaras and complexion essentials that sell. High-pigment formulas and playful collabs, priced for wholesale.
+                {t.brandText}
               </p>
               <ul className="space-y-2 text-sm text-slate-600 mb-6">
-                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> Full master-carton pricing, EXW EU</li>
-                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> Live stock from Italy-based warehouses</li>
-                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> NET 30 / 60 terms for approved buyers</li>
+                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> {t.bullet1}</li>
+                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> {t.bullet2}</li>
+                <li className="flex gap-2"><span className="text-[#c49a3a]">●</span> {t.bullet3}</li>
               </ul>
-              <a href="/signup" className="inline-block bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-7 py-3 rounded-md hover:bg-[#163d80] transition-colors">
-                Become a stockist
+              <a href={h("/signup")} className="inline-block bg-[#0d2b5e] text-white text-xs uppercase tracking-wider px-7 py-3 rounded-md hover:bg-[#163d80] transition-colors">
+                {t.becomeStockist}
               </a>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {featured.slice(0, 4).map((p) => (
-                <a key={p.id} href={`/product/${p.id}`} className="aspect-square bg-[#f8fafc] border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center hover:border-[#0d2b5e] transition-colors">
+                <a key={p.id} href={h(`/product/${p.id}`)} className="aspect-square bg-[#f8fafc] border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center hover:border-[#0d2b5e] transition-colors">
                   <img src={p.image_url as string} alt={p.name} className="w-full h-full object-contain" loading="lazy" />
                 </a>
               ))}

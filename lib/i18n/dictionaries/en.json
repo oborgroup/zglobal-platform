@@ -395,5 +395,32 @@
     "ctaText": "Join our wholesale platform and connect with global brands across outdoor, home, and vacuum categories.",
     "requestAccess": "Request access",
     "browseCatalog": "Browse catalog"
+  },
+  "beauty": {
+    "eyebrow": "Beauty & Cosmetics",
+    "heroTitle1": "Colour, glow & glam —",
+    "heroTitle2": "wholesale by SHEGLAM.",
+    "loadingRange": "Loading the beauty range…",
+    "statLine": "{skus} makeup SKUs across {cats} categories — blush, lips, eyes, complexion and more. Full master-carton wholesale, EXW EU.",
+    "shopAll": "Shop all beauty",
+    "requestAccess": "Request wholesale access",
+    "shopByCategory": "Shop by category",
+    "findYour": "Find your",
+    "findYourEm": "finish",
+    "allCategories": "All categories →",
+    "productsCount": "{n} products",
+    "trendingNow": "Trending now",
+    "bestsellers": "Bestsellers &",
+    "bestsellersEm": "new arrivals",
+    "viewAll": "View all beauty products",
+    "theBrand": "The brand",
+    "brandTitle1": "SHEGLAM —",
+    "brandTitleEm": "viral beauty,",
+    "brandTitle2": "wholesale-ready",
+    "brandText": "SHEGLAM brings trend-driven, social-first makeup to your shelves — blush, liquid tints, lip plumpers, concealers, mascaras and complexion essentials that sell. High-pigment formulas and playful collabs, priced for wholesale.",
+    "bullet1": "Full master-carton pricing, EXW EU",
+    "bullet2": "Live stock from Italy-based warehouses",
+    "bullet3": "NET 30 / 60 terms for approved buyers",
+    "becomeStockist": "Become a stockist"
   }
 }

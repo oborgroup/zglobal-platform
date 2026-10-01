@@ -395,5 +395,32 @@
     "ctaText": "Sluit u aan bij ons groothandelsplatform en maak verbinding met wereldwijde merken in de categorieën outdoor, wonen en stofzuigers.",
     "requestAccess": "Toegang aanvragen",
     "browseCatalog": "Bekijk catalogus"
+  },
+  "beauty": {
+    "eyebrow": "Beauty & cosmetica",
+    "heroTitle1": "Kleur, glow & glam —",
+    "heroTitle2": "groothandel door SHEGLAM.",
+    "loadingRange": "Het beauty-assortiment laden…",
+    "statLine": "{skus} make-up-SKU's in {cats} categorieën — blush, lippen, ogen, teint en meer. Volledige groothandel per masterdoos, EXW EU.",
+    "shopAll": "Alle beauty bekijken",
+    "requestAccess": "Groothandelstoegang aanvragen",
+    "shopByCategory": "Shop per categorie",
+    "findYour": "Vind jouw",
+    "findYourEm": "finish",
+    "allCategories": "Alle categorieën →",
+    "productsCount": "{n} producten",
+    "trendingNow": "Nu trending",
+    "bestsellers": "Bestsellers &",
+    "bestsellersEm": "nieuwe aanwinsten",
+    "viewAll": "Alle beautyproducten bekijken",
+    "theBrand": "Het merk",
+    "brandTitle1": "SHEGLAM —",
+    "brandTitleEm": "virale beauty,",
+    "brandTitle2": "klaar voor groothandel",
+    "brandText": "SHEGLAM brengt trendgedreven, social-first make-up naar uw schappen — blush, vloeibare tints, lipplumpers, concealers, mascara's en teint-essentials die verkopen. Hoog-gepigmenteerde formules en speelse collabs, geprijsd voor groothandel.",
+    "bullet1": "Volledige masterdoos-prijzen, EXW EU",
+    "bullet2": "Live voorraad uit magazijnen in Italië",
+    "bullet3": "NET 30 / 60-voorwaarden voor goedgekeurde kopers",
+    "becomeStockist": "Word verkooppunt"
   }
 }
