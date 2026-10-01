@@ -303,5 +303,27 @@
     "brand": "Merk",
     "variants": "Varianten",
     "available": "{n} beschikbaar"
+  },
+  "category": {
+    "allProducts": "← Alle producten",
+    "loading": "Laden…",
+    "productsCount": "{n} producten",
+    "productsCategories": "{p} producten · {c} categorieën",
+    "empty": "Nog geen producten in deze categorie.",
+    "browseAll": "Alles bekijken",
+    "breadcrumbAll": "Alle producten",
+    "noProductsHere": "Geen producten gevonden.",
+    "backTo": "Terug naar {title}",
+    "loadMore": "Meer laden",
+    "product": "product",
+    "products": "producten",
+    "noImage": "Geen afbeelding",
+    "inStock": "Op voorraad",
+    "backorder": "Nabestelling",
+    "titleBeauty": "Beauty & cosmetica",
+    "titleOutdoor": "Outdoor & sport",
+    "titleHome": "Wonen & leven",
+    "titleElectronics": "Elektronica",
+    "titleNewArrivals": "Nieuwe aanwinsten"
   }
 }

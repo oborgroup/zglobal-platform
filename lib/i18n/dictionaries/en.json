@@ -303,5 +303,27 @@
     "brand": "Brand",
     "variants": "Variants",
     "available": "{n} available"
+  },
+  "category": {
+    "allProducts": "← All products",
+    "loading": "Loading…",
+    "productsCount": "{n} products",
+    "productsCategories": "{p} products · {c} categories",
+    "empty": "No products in this category yet.",
+    "browseAll": "Browse all",
+    "breadcrumbAll": "All products",
+    "noProductsHere": "No products found here.",
+    "backTo": "Back to {title}",
+    "loadMore": "Load more",
+    "product": "product",
+    "products": "products",
+    "noImage": "No image",
+    "inStock": "In stock",
+    "backorder": "Backorder",
+    "titleBeauty": "Beauty & Cosmetics",
+    "titleOutdoor": "Outdoor & Sports",
+    "titleHome": "Home & Living",
+    "titleElectronics": "Electronics",
+    "titleNewArrivals": "New Arrivals"
   }
 }
