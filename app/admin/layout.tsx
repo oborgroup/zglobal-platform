@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import CookieConsent from "@/components/CookieConsent";
+import "../globals.css";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
-  title: "ZGlobal — B2B Wholesale Platform",
-  description: "Multi-brand B2B wholesale platform. Outdoor, home & vacuum brands. Italy & EU.",
+  title: "ZGlobal Admin",
   icons: { icon: "/favicon.png" },
 };
 
-export default function RootLayout({
+// Admin is English-only. We still wrap it in a LocaleProvider (pinned to "en")
+// so shared components like <Footer> that read the locale keep working here.
+export default async function AdminRootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const dict = await getDictionary("en");
   return (
     <html lang="en" className="antialiased">
       <head>
@@ -23,7 +26,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen">{children}<CookieConsent /></body>
+      <body className="min-h-screen">
+        <LocaleProvider locale="en" dict={dict}>{children}</LocaleProvider>
+      </body>
     </html>
   );
 }
