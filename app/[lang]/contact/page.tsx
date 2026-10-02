@@ -76,6 +76,7 @@ export default function ContactPage() {
               <div className="text-sm text-slate-600 space-y-2">
                 <div><div className="text-[10px] uppercase tracking-wider text-slate-400">{t.email}</div><a href="mailto:info@zglobalcorp.com" className="text-[#0d2b5e] hover:underline">info@zglobalcorp.com</a></div>
                 <div><div className="text-[10px] uppercase tracking-wider text-slate-400">{t.sidebarSupport}</div><a href="mailto:support@zglobalcorp.com" className="text-[#0d2b5e] hover:underline">support@zglobalcorp.com</a></div>
+                <div><div className="text-[10px] uppercase tracking-wider text-slate-400">{t.sidebarPhone}</div><a href="tel:+393453067000" className="text-[#0d2b5e] hover:underline">+39 345 306 7000</a></div>
                 <div><div className="text-[10px] uppercase tracking-wider text-slate-400">{t.sidebarAddress}</div><span>Parelmoervlinder 10<br />3544 DH Utrecht<br />The Netherlands</span></div>
               </div>
             </div>
