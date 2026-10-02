@@ -26,10 +26,10 @@
   },
   "header": {
     "tagline": "B2B Wholesale Platform",
-    "region": "Italy & EU"
+    "region": "EU"
   },
   "footer": {
-    "tagline": "B2B wholesale platform for outdoor, home & vacuum brands. Italy-first, EU-ready.",
+    "tagline": "B2B wholesale platform for outdoor, home & vacuum brands. EU-ready.",
     "platform": "Platform",
     "account": "Account",
     "support": "Support",
@@ -84,12 +84,12 @@
   "auth": {
     "panelSignInTitle1": "Every brand.",
     "panelSignInTitle2": "One platform.",
-    "panelSignInText": "Outdoor gear and vacuum machines — all your wholesale brands in one place. Live inventory from Italy-based warehouses.",
+    "panelSignInText": "Outdoor gear and vacuum machines — all your wholesale brands in one place. Live inventory from EU-based warehouses.",
     "panelSignupTitle1": "Apply for",
     "panelSignupTitle2": "wholesale access.",
     "panelSignupText": "Approved buyers get access to every brand on the platform, live warehouse stock, and flexible payment terms.",
     "statBrands": "3 Brands",
-    "statRegion": "Italy & EU",
+    "statRegion": "EU",
     "statTerms": "NET 30 / 60",
     "email": "Email",
     "password": "Password",
@@ -112,7 +112,7 @@
     "vat": "VAT / Partita IVA",
     "vatPlaceholder": "VAT number",
     "phone": "Phone number",
-    "phonePlaceholder": "+39 ...",
+    "phonePlaceholder": "+31 ...",
     "street": "Street address",
     "address2": "Address line 2",
     "address2Placeholder": "Apartment, suite, etc. (optional)",
@@ -343,7 +343,7 @@
     "faq2q": "What are your payment terms?",
     "faq2a": "We offer NET 30 and NET 60 terms for approved wholesale accounts, depending on order volume and account history.",
     "faq3q": "Which countries do you ship to?",
-    "faq3a": "We ship across Italy and the EU from Italy-based warehouses. Contact us for specific delivery timelines to your region.",
+    "faq3a": "We ship across the EU from EU-based warehouses. Contact us for specific delivery timelines to your region.",
     "faq4q": "What is the minimum order quantity?",
     "faq4a": "MOQ varies by product and is shown on each product page. Most items have low minimums to support smaller retailers.",
     "faq5q": "How do I become a buyer?",
@@ -419,7 +419,7 @@
     "brandTitle2": "wholesale-ready",
     "brandText": "SHEGLAM brings trend-driven, social-first makeup to your shelves — blush, liquid tints, lip plumpers, concealers, mascaras and complexion essentials that sell. High-pigment formulas and playful collabs, priced for wholesale.",
     "bullet1": "Full master-carton pricing, EXW EU",
-    "bullet2": "Live stock from Italy-based warehouses",
+    "bullet2": "Live stock from EU-based warehouses",
     "bullet3": "NET 30 / 60 terms for approved buyers",
     "becomeStockist": "Become a stockist"
   }
