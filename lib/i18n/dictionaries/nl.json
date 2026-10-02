@@ -26,10 +26,10 @@
   },
   "header": {
     "tagline": "B2B-groothandelsplatform",
-    "region": "Italië & EU"
+    "region": "EU"
   },
   "footer": {
-    "tagline": "B2B-groothandelsplatform voor outdoor-, woon- en stofzuigermerken. Italië-first, EU-ready.",
+    "tagline": "B2B-groothandelsplatform voor outdoor-, woon- en stofzuigermerken. Klaar voor de EU.",
     "platform": "Platform",
     "account": "Account",
     "support": "Klantenservice",
@@ -84,12 +84,12 @@
   "auth": {
     "panelSignInTitle1": "Elk merk.",
     "panelSignInTitle2": "Eén platform.",
-    "panelSignInText": "Outdoor-uitrusting en stofzuigers — al uw groothandelsmerken op één plek. Live voorraad uit magazijnen in Italië.",
+    "panelSignInText": "Outdoor-uitrusting en stofzuigers — al uw groothandelsmerken op één plek. Live voorraad uit EU-magazijnen.",
     "panelSignupTitle1": "Vraag",
     "panelSignupTitle2": "groothandelstoegang aan.",
     "panelSignupText": "Goedgekeurde kopers krijgen toegang tot elk merk op het platform, live magazijnvoorraad en flexibele betalingsvoorwaarden.",
     "statBrands": "3 merken",
-    "statRegion": "Italië & EU",
+    "statRegion": "EU",
     "statTerms": "NET 30 / 60",
     "email": "E-mail",
     "password": "Wachtwoord",
@@ -343,7 +343,7 @@
     "faq2q": "Wat zijn uw betalingsvoorwaarden?",
     "faq2a": "We bieden NET 30- en NET 60-voorwaarden voor goedgekeurde groothandelsaccounts, afhankelijk van ordervolume en accountgeschiedenis.",
     "faq3q": "Naar welke landen verzenden jullie?",
-    "faq3a": "We verzenden door heel Italië en de EU vanuit magazijnen in Italië. Neem contact met ons op voor specifieke levertijden voor uw regio.",
+    "faq3a": "We verzenden door heel de EU vanuit EU-magazijnen. Neem contact met ons op voor specifieke levertijden voor uw regio.",
     "faq4q": "Wat is de minimale bestelhoeveelheid?",
     "faq4a": "De MOQ verschilt per product en wordt op elke productpagina getoond. De meeste artikelen hebben lage minima om ook kleinere retailers te ondersteunen.",
     "faq5q": "Hoe word ik koper?",
@@ -419,7 +419,7 @@
     "brandTitle2": "klaar voor groothandel",
     "brandText": "SHEGLAM brengt trendgedreven, social-first make-up naar uw schappen — blush, vloeibare tints, lipplumpers, concealers, mascara's en teint-essentials die verkopen. Hoog-gepigmenteerde formules en speelse collabs, geprijsd voor groothandel.",
     "bullet1": "Volledige masterdoos-prijzen, EXW EU",
-    "bullet2": "Live voorraad uit magazijnen in Italië",
+    "bullet2": "Live voorraad uit EU-magazijnen",
     "bullet3": "NET 30 / 60-voorwaarden voor goedgekeurde kopers",
     "becomeStockist": "Word verkooppunt"
   }

@@ -43,7 +43,7 @@ export default function SupportPage() {
               </div>
               <h3 className="font-semibold text-[#0d2b5e] mb-1">{t.callUs}</h3>
               <p className="text-sm text-slate-500 mb-2">{t.callUsText}</p>
-              <span className="text-sm text-[#0d2b5e] font-medium">+39 —— ——</span>
+              <span className="text-sm text-[#0d2b5e] font-medium">+31 —— ——</span>
             </div>
             <div className="bg-white border border-slate-200 rounded-lg p-6">
               <div className="w-10 h-10 rounded-lg bg-[#eaf1fb] flex items-center justify-center mb-4 text-[#0d2b5e]">
