@@ -370,7 +370,11 @@
     "thStock": "Voorraad",
     "thStatus": "Status",
     "loading": "Laden…",
-    "showingFirst": "Eerste 100 van {n} getoond. Gebruik zoeken om te verfijnen."
+    "showingFirst": "Eerste 100 van {n} getoond. Gebruik zoeken om te verfijnen.",
+    "gatedTitle": "Live voorraad is voor goedgekeurde kopers",
+    "gatedGuest": "Log in op uw goedgekeurde groothandelsaccount om de live magazijnvoorraad te bekijken.",
+    "gatedPending": "Uw groothandelsaccount wacht op goedkeuring. Zodra uw account is goedgekeurd, ziet u de live voorraad.",
+    "gatedOther": "Live voorraadniveaus zijn beschikbaar voor goedgekeurde kopers."
   },
   "about": {
     "eyebrow": "Over ZGlobal",

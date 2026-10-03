@@ -370,7 +370,11 @@
     "thStock": "Stock",
     "thStatus": "Status",
     "loading": "Loading…",
-    "showingFirst": "Showing first 100 of {n}. Use search to narrow."
+    "showingFirst": "Showing first 100 of {n}. Use search to narrow.",
+    "gatedTitle": "Live stock is for approved buyers",
+    "gatedGuest": "Sign in to your approved wholesale account to view live warehouse stock.",
+    "gatedPending": "Your wholesale account is awaiting approval. You'll see live stock once approved.",
+    "gatedOther": "Live stock levels are available to approved buyers."
   },
   "about": {
     "eyebrow": "About ZGlobal",
