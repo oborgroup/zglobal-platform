@@ -151,6 +151,7 @@ export default function DashboardPage() {
                 <div><div className="text-xs uppercase tracking-wider text-slate-400 mb-1">{t.company}</div><div className="text-sm text-[#0d2b5e] font-medium">{company}</div></div>
                 <div className="border-t border-slate-100 pt-4"><div className="text-xs uppercase tracking-wider text-slate-400 mb-1">{t.email}</div><div className="text-sm text-slate-700 break-all">{email}</div></div>
                 <div className="border-t border-slate-100 pt-4"><div className="text-xs uppercase tracking-wider text-slate-400 mb-1">{t.paymentTerms}</div><div className="text-sm text-slate-700">{t.paymentTermsValue}</div></div>
+                <div className="border-t border-slate-100 pt-4"><a href={h("/account")} className="text-sm text-[#0d2b5e] font-medium hover:underline">{dict.account.editAccount} →</a></div>
               </div>
             </div>
             <div>

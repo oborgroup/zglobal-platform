@@ -427,5 +427,20 @@
     "bullet2": "Live voorraad uit EU-magazijnen",
     "bullet3": "NET 30 / 60-voorwaarden voor goedgekeurde kopers",
     "becomeStockist": "Word verkooppunt"
+  },
+  "account": {
+    "title": "Account",
+    "intro": "Beheer uw bedrijfsgegevens en inloggegevens.",
+    "companyInfo": "Bedrijf & contact",
+    "addressInfo": "Adres",
+    "emailInfo": "E-mail",
+    "emailNote": "Neem contact met ons op om uw account-e-mail te wijzigen.",
+    "passwordInfo": "Wachtwoord wijzigen",
+    "save": "Wijzigingen opslaan",
+    "saving": "Opslaan…",
+    "saved": "Wijzigingen opgeslagen.",
+    "pwSaved": "Wachtwoord bijgewerkt.",
+    "editAccount": "Account bewerken",
+    "backToDashboard": "← Terug naar dashboard"
   }
 }

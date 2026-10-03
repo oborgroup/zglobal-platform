@@ -427,5 +427,20 @@
     "bullet2": "Live stock from EU-based warehouses",
     "bullet3": "NET 30 / 60 terms for approved buyers",
     "becomeStockist": "Become a stockist"
+  },
+  "account": {
+    "title": "Account",
+    "intro": "Manage your company details and sign-in.",
+    "companyInfo": "Company & contact",
+    "addressInfo": "Address",
+    "emailInfo": "Email",
+    "emailNote": "Contact us to change your account email.",
+    "passwordInfo": "Change password",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saved": "Changes saved.",
+    "pwSaved": "Password updated.",
+    "editAccount": "Edit account",
+    "backToDashboard": "← Back to dashboard"
   }
 }
