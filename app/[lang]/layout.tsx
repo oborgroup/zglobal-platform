@@ -5,12 +5,30 @@ import CookieConsent from "@/components/CookieConsent";
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales } from "@/lib/i18n/config";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "ZGlobal — B2B Wholesale Platform",
-  description: "Multi-brand B2B wholesale platform. Outdoor, home & vacuum brands. EU-ready.",
-  icons: { icon: "/favicon.png" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const loc = isLocale(lang) ? lang : "en";
+  const dict = await getDictionary(loc);
+  const title = "ZGlobal — B2B Wholesale Platform";
+  const description = dict.footer.tagline;
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: title, template: `%s · ${SITE_NAME}` },
+    description,
+    icons: { icon: "/favicon.png" },
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      title,
+      description,
+      locale: loc === "nl" ? "nl_NL" : "en_US",
+      images: ["/z-global-logo.png"],
+    },
+    twitter: { card: "summary", title, description, images: ["/z-global-logo.png"] },
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
